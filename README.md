@@ -1,4 +1,5 @@
 # Mongoid::Socialization
+[![Build Status](https://travis-ci.org/chamnap/mongoid-socialization.svg?branch=master)](https://travis-ci.org/chamnap/mongoid-socialization)[![Coverage Status](https://coveralls.io/repos/chamnap/mongoid-socialization/badge.png)](https://coveralls.io/r/chamnap/mongoid-socialization)[![Code Climate](https://codeclimate.com/github/chamnap/mongoid-socialization.png)](https://codeclimate.com/github/chamnap/mongoid-socialization)[![Dependency Status](https://gemnasium.com/chamnap/mongoid-socialization.svg)](https://gemnasium.com/chamnap/mongoid-socialization)
 
 TODO: Write a gem description
 
