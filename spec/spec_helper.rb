@@ -17,7 +17,8 @@ $LOAD_PATH.unshift(MODELS)
 
 require "pry"
 require "rails"
-require "mongoid-socialization"
+require "mongoid"
+require "mongoid/socialization"
 require "ammeter/init"
 
 # mongoid connection
