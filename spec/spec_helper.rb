@@ -20,6 +20,7 @@ require "rails"
 require "mongoid"
 require "mongoid/socialization"
 require "ammeter/init"
+require "mongoid-rspec"
 
 # mongoid connection
 Mongoid.load! File.dirname(__FILE__) + "/config/mongoid.yml", :test
@@ -34,6 +35,8 @@ RSpec.configure do |config|
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
   config.treat_symbols_as_metadata_keys_with_true_values = true
+
+  config.include Mongoid::Matchers, type: :model
 
   config.before(:each) do
     Mongoid.purge!
