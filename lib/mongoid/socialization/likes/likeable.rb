@@ -11,8 +11,8 @@ module Mongoid
       Socialization::Likes.liked?(liker, self)
     end
 
-    def likers
-      Socialization::Likes.likers(self)
+    def likers(klass)
+      Socialization::Likes.likers(self, klass)
     end
 
   end

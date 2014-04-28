@@ -26,9 +26,9 @@ module Mongoid
 
     context "#likers" do
       it "should receive #likers on Likes" do
-        Socialization::Likes.should_receive(:likers).with(product)
+        Socialization::Likes.should_receive(:likers).with(product, User)
 
-        product.likers
+        product.likers(User)
       end
     end
   end
