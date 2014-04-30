@@ -10,14 +10,14 @@ module Mongoid
 
     def likes_count(klass=nil)
       if klass.nil?
-        read_attribute(:likes_count)
+        read_attribute(:likes_count).values.sum
       else
         read_attribute(:likes_count)[klass.name]
       end
     end
 
     def update_likes_count!(klass, count)
-      hash = likes_count
+      hash = read_attribute(:likes_count)
       hash[klass.name] = count
 
       update_attribute :likes_count, hash

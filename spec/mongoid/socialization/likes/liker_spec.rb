@@ -74,5 +74,16 @@ module Mongoid
         }.to raise_error(Mongoid::Socialization::ArgumentError)
       end
     end
+
+    context "#destroy" do
+      it "removes like_models when this liker is destroyed" do
+        user.like!(product)
+        expect(user.likeables(Product)).to eq([product])
+
+        user.destroy
+        expect(user.likeables(Product)).to eq([])
+        expect(product.persisted?).to be_true
+      end
+    end
   end
 end
