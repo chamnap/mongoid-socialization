@@ -3,27 +3,27 @@ module Mongoid
     extend ActiveSupport::Concern
 
     included do
-      field :likeable_klasses,   type: Array,    default: []
+      after_destroy { Mongoid::Socialization.like_model.remove_likeables(self) }
     end
 
     def like!(likeable)
-      Socialization::Likes.like!(self, likeable)
+      Socialization::LikeModel.like!(self, likeable)
     end
 
     def unlike!(likeable)
-      Socialization::Likes.unlike!(self, likeable)
+      Socialization::LikeModel.unlike!(self, likeable)
     end
 
     def toggle_like!(likeable)
-      Socialization::Likes.toggle_like!(self, likeable)
+      Socialization::LikeModel.toggle_like!(self, likeable)
     end
 
     def liked?(likeable)
-      Socialization::Likes.liked?(self, likeable)
+      Socialization::LikeModel.liked?(self, likeable)
     end
 
     def likeables(klass)
-      Socialization::Likes.likeables(self, klass)
+      Socialization::LikeModel.likeables(self, klass)
     end
   end
 end

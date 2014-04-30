@@ -3,16 +3,36 @@ module Mongoid
     extend ActiveSupport::Concern
 
     included do
-      field :likes_count, type: Integer,  default: 0
-      field :liker_ids,   type: Array,    default: []
+      field :likes_count, type: Hash, default: {}
+
+      after_destroy { Socialization.like_model.remove_likers(self) }
+    end
+
+    def likes_count(klass=nil)
+      if klass.nil?
+        read_attribute(:likes_count)
+      else
+        read_attribute(:likes_count)[klass.name]
+      end
+    end
+
+    def update_likes_count!(klass, count)
+      hash = likes_count
+      hash[klass.name] = count
+
+      update_attribute :likes_count, hash
     end
 
     def liked_by?(liker)
-      Socialization::Likes.liked?(liker, self)
+      Socialization::LikeModel.liked?(liker, self)
     end
 
     def likers(klass)
-      Socialization::Likes.likers(self, klass)
+      Socialization::LikeModel.likers(self, klass)
+    end
+
+    def liker_ids(klass)
+      Socialization::LikeModel.likers(self, klass).pluck("_id")
     end
 
   end

@@ -12,8 +12,20 @@ module Mongoid
 
   module Socialization
     autoload :ArgumentError,  "mongoid/socialization/argument_error"
-    autoload :Likes,          "mongoid/socialization/likes/likes"
+    autoload :LikeModel,      "mongoid/socialization/likes/like_model"
     autoload :Follows,        "mongoid/socialization/follows/follows"
+
+    def self.like_model
+      if @like_model
+        @like_model
+      else
+        LikeModel
+      end
+    end
+
+    def self.like_model=(klass)
+      @like_model = klass
+    end
   end
 end
 

@@ -1,17 +1,13 @@
 require "spec_helper"
 
-describe User, type: :model do
-  it { should have_field(:likeable_klasses).of_type(Array).with_default_value_of([]) }
-end
-
 module Mongoid
   describe Liker do
     let(:user)    { User.create!(name: "chamnap") }
     let(:product) { Product.create!(name: "Laptop") }
 
     context "#like!" do
-      it "should receive #like! on Likes" do
-        Socialization::Likes.should_receive(:like!).with(user, product)
+      it "should receive #like! on LikeModel" do
+        Socialization::LikeModel.should_receive(:like!).with(user, product)
 
         user.like!(product)
       end
@@ -24,8 +20,8 @@ module Mongoid
     end
 
     context "#unlike!" do
-      it "should receive #unlike! on Likes" do
-        Socialization::Likes.should_receive(:unlike!).with(user, product)
+      it "should receive #unlike! on LikeModel" do
+        Socialization::LikeModel.should_receive(:unlike!).with(user, product)
 
         user.unlike!(product)
       end
@@ -38,8 +34,8 @@ module Mongoid
     end
 
     context "#toggle_like!" do
-      it "should receive #toggle_like! on Likes" do
-        Socialization::Likes.should_receive(:toggle_like!).with(user, product)
+      it "should receive #toggle_like! on LikeModel" do
+        Socialization::LikeModel.should_receive(:toggle_like!).with(user, product)
 
         user.toggle_like!(product)
       end
@@ -52,8 +48,8 @@ module Mongoid
     end
 
     context "#liked?" do
-      it "should receive #liked? on Likes" do
-        Socialization::Likes.should_receive(:liked?).with(user, product)
+      it "should receive #liked? on LikeModel" do
+        Socialization::LikeModel.should_receive(:liked?).with(user, product)
 
         user.liked?(product)
       end
@@ -66,8 +62,8 @@ module Mongoid
     end
 
     context "#likeables" do
-      it "should receive #likeables on Likes" do
-        Socialization::Likes.should_receive(:likeables).with(user, Product)
+      it "should receive #likeables on LikeModel" do
+        Socialization::LikeModel.should_receive(:likeables).with(user, Product)
 
         user.likeables(Product)
       end
