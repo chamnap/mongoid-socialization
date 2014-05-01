@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rake",             "~> 10.1.1"
-gem "bundler",          "~> 1.5.3"
+gem "bundler",          "~> 1.6.1"
 gem "rspec",            "~> 2.14.1"
 gem "pry",              "~> 0.9.12.6"
 gem "simplecov",        "~> 0.8.2"
