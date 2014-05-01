@@ -32,7 +32,7 @@ module Mongoid
     end
 
     def liker_ids(klass)
-      Socialization::LikeModel.likers(self, klass).pluck("_id")
+      likers(klass).pluck("_id")
     end
 
   end
