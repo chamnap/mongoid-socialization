@@ -4,6 +4,7 @@ class User
   include Mongoid::Liker
   include Mongoid::Follower
   include Mongoid::Followable
+  include Mongoid::WishLister
 
   field   :name, type: String
 end

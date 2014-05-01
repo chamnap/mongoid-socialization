@@ -3,37 +3,20 @@ module Mongoid
     module DocumentAdditions
       extend ActiveSupport::Concern
 
-      def likeable?
-        self.class.likeable?
-      end
+      METHODS = %w( likeable? liker? followable? follower? wish_lister? wish_listable? )
 
-      def liker?
-        self.class.liker?
-      end
-
-      def followable?
-        self.class.followable?
-      end
-
-      def follower?
-        self.class.follower?
+      METHODS.each do |method|
+        define_method(method) do
+          self.class.send(method)
+        end
       end
 
       module ClassMethods
-        def likeable?
-          included_modules.include?(Mongoid::Likeable)
-        end
-
-        def liker?
-          included_modules.include?(Mongoid::Liker)
-        end
-
-        def followable?
-          included_modules.include?(Mongoid::Followable)
-        end
-
-        def follower?
-          included_modules.include?(Mongoid::Follower)
+        METHODS.each do |method|
+          define_method(method) do
+            module_name = "Mongoid::#{method.gsub(/\?$/, '').camelize}"
+            included_modules.include?(module_name.constantize)
+          end
         end
       end
     end
