@@ -7,6 +7,9 @@ rvm:
   - 2.1.1
 env:
   - CODECLIMATE_REPO_TOKEN=09d5b03158ed324e25726a0cca45311ab052b8b7229c6fbfbf0155fcf822e411
+gemfile:
+  - gemfiles/mongoid_3.gemfile
+  - gemfiles/mongoid_4.gemfile
 notifications:
   email: false
 addons:
