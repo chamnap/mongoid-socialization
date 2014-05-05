@@ -4,6 +4,8 @@ module Mongoid
       include Mongoid::Document
       include Mongoid::Timestamps
 
+      store_in    collection: "mongoid_socialization_wish_lists"
+
       # Indexes
       index({ wish_listable_id: 1, wish_listable_type: 1 }, { background: true })
       index({ wish_lister_id: 1, wish_lister_type: 1 }, { background: true })

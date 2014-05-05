@@ -4,6 +4,8 @@ module Mongoid
       include Mongoid::Document
       include Mongoid::Timestamps
 
+      store_in    collection: "mongoid_socialization_follows"
+
       # Indexes
       index({ followable_id: 1, followable_type: 1 }, { background: true })
       index({ follower_id: 1, follower_type: 1 }, { background: true })

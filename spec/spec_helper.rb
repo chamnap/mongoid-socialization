@@ -30,6 +30,7 @@ Dir[ File.join(MODELS, "*.rb") ].sort.each do |file|
   name = File.basename(file, ".rb")
   autoload name.camelize.to_sym, name
 end
+Mongoid::Socialization.conversationer_klass_name = "User"
 
 RSpec.configure do |config|
   config.filter_run focus: true

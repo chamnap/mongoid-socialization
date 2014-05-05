@@ -1,9 +1,5 @@
 require "spec_helper"
 
-describe User, type: :model do
-  it { should have_field(:followers_count).of_type(Hash).with_default_value_of({}) }
-end
-
 module Mongoid
   describe Followable do
     let(:user1)   { User.create!(name: "chamnap1") }

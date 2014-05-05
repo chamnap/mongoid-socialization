@@ -4,6 +4,8 @@ module Mongoid
       include Mongoid::Document
       include Mongoid::Timestamps
 
+      store_in    collection: "mongoid_socialization_likes"
+
       # Indexes
       index({ likeable_id: 1, likeable_type: 1 }, { background: true })
       index({ liker_id: 1, liker_type: 1 }, { background: true })
