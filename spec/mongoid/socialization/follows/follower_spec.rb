@@ -65,16 +65,16 @@ module Mongoid
       end
     end
 
-    context "#followables" do
-      it "should receive #followables on FollowModel" do
+    context "#followings" do
+      it "should receive #followings on FollowModel" do
         Socialization::FollowModel.should_receive(:followables).with(user1, User)
 
-        user1.followables(User)
+        user1.followings(User)
       end
 
       it "raises exception when it is not followable" do
         expect {
-          user1.followables(:foo)
+          user1.followings(:foo)
         }.to raise_error(Mongoid::Socialization::ArgumentError)
       end
     end
@@ -102,10 +102,10 @@ module Mongoid
     context "#destroy" do
       it "removes follow_models when this follower is destroyed" do
         user1.follow!(page1)
-        expect(user1.followables(Page)).to eq([page1])
+        expect(user1.followings(Page)).to eq([page1])
 
         user1.destroy
-        expect(user1.followables(Page)).to eq([])
+        expect(user1.followings(Page)).to eq([])
         expect(page1.persisted?).to be_true
       end
     end

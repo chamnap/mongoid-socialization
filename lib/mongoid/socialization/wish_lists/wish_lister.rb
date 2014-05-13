@@ -25,5 +25,9 @@ module Mongoid
     def wish_listables(klass)
       Socialization::WishListModel.wish_listables(self, klass)
     end
+
+    def wish_listable_ids(klass)
+      wish_listables.pluck("_id")
+    end
   end
 end

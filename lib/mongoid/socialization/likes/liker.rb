@@ -25,5 +25,9 @@ module Mongoid
     def likeables(klass)
       Socialization::LikeModel.likeables(self, klass)
     end
+
+    def likeable_ids(klass)
+      likeables(klass).pluck("_id")
+    end
   end
 end

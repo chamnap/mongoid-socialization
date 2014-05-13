@@ -25,6 +25,9 @@ require "mongoid-rspec"
 # mongoid connection
 Mongoid.load! File.dirname(__FILE__) + "/config/mongoid.yml", :test
 
+# silent deprecation warnings
+I18n.enforce_available_locales = false
+
 # Autoload every model for the test suite that sits in spec/app/models.
 Dir[ File.join(MODELS, "*.rb") ].sort.each do |file|
   name = File.basename(file, ".rb")

@@ -39,8 +39,12 @@ module Mongoid
       Socialization::FollowModel.followed?(self, followable)
     end
 
-    def followables(klass)
+    def followings(klass)
       Socialization::FollowModel.followables(self, klass)
+    end
+
+    def following_ids(klass)
+      followables(klass).pluck("_id")
     end
   end
 end

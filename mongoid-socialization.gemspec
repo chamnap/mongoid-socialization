@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Mongoid::Socialization::VERSION
   spec.authors       = ["Chamnap Chhorn"]
   spec.email         = ["chamnapchhorn@gmail.com"]
-  spec.summary       = %q{Socialize your app with Likes, Follows, WishLists}
-  spec.description   = %q{Socialization allows any models to Like, Follow, and WishList any other models.}
+  spec.summary       = %q{Socialize your app with Likes, Follows, WishLists, Mentions, and Private Messages}
+  spec.description   = %q{Socialization allows any models to Like, Follow, WishList, Mention, and Message any other models.}
   spec.homepage      = "https://github.com/chamnap/mongoid-socialization"
   spec.license       = "MIT"
 
