@@ -13,6 +13,9 @@ module Mongoid
       embedded_in :conversation,    class_name: Mongoid::Socialization.conversation_model.to_s
       belongs_to  :sender,          class_name: Mongoid::Socialization.conversationer_model.to_s
 
+      validates   :text, :sender,
+                  presence: true
+
       def seen!
         update_attributes!(is_seen: true, seen_at: Time.now)
       end

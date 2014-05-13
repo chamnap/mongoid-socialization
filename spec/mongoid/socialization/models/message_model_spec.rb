@@ -9,5 +9,8 @@ module Mongoid::Socialization
 
     it { should be_embedded_in(:conversation) }
     it { should belong_to(:sender).of_type(Mongoid::Socialization.conversationer_model) }
+
+    it { should validate_presence_of(:text) }
+    it { should validate_presence_of(:sender) }
   end
 end
