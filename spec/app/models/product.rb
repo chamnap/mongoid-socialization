@@ -4,5 +4,7 @@ class Product
   include Mongoid::Likeable
   include Mongoid::WishListable
 
-  field   :name, type: String
+  field       :name,      type: String
+
+  has_many    :comments,  as: :product
 end

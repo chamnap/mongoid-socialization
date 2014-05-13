@@ -5,5 +5,7 @@ class Page
   include Mongoid::Followable
   include Mongoid::WishListable
 
-  field   :name, type: String
+  field       :name,      type: String
+
+  has_many    :comments,  as: :page
 end

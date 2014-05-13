@@ -3,7 +3,7 @@ module Mongoid
     module DocumentAdditions
       extend ActiveSupport::Concern
 
-      METHODS = %w( likeable? liker? followable? follower? wish_lister? wish_listable? )
+      METHODS = %w( likeable? liker? followable? follower? wish_lister? wish_listable? mentioner? mentionable? )
 
       METHODS.each do |method|
         define_method(method) do

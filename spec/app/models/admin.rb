@@ -5,6 +5,7 @@ class Admin
   include Mongoid::Follower
   include Mongoid::Followable
   include Mongoid::WishLister
+  include Mongoid::Mentionable
 
   field   :name, type: String
 end

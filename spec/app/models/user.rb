@@ -6,6 +6,7 @@ class User
   include Mongoid::Followable
   include Mongoid::WishLister
   include Mongoid::Conversationable
+  include Mongoid::Mentionable
 
   field   :name, type: String
 end
