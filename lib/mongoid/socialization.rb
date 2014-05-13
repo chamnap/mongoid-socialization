@@ -62,6 +62,10 @@ module Mongoid
     def self.conversationer_model
       @conversationer_klass_name.constantize
     end
+
+    def self.boolean_klass
+      defined?(Mongoid::Boolean) ? Mongoid::Boolean : Boolean
+    end
   end
 end
 

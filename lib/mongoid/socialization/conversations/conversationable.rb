@@ -3,7 +3,7 @@ module Mongoid
     extend ActiveSupport::Concern
 
     included do
-      has_and_belongs_to_many :conversations, class_name: Mongoid::Socialization.conversation_model.to_s, inverse_of: :participants
+      has_and_belongs_to_many :conversations, class_name: Mongoid::Socialization.conversation_model.to_s
     end
 
     def make_conversation!(another_participant)

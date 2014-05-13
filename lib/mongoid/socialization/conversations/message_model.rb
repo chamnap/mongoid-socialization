@@ -5,7 +5,7 @@ module Mongoid
       include Mongoid::Timestamps
 
       # Fields
-      field       :is_seen,         type: Mongoid::Boolean, default: false
+      field       :is_seen,         type: Mongoid::Socialization.boolean_klass, default: false
       field       :seen_at,         type: Time
       field       :text,            type: String
 
