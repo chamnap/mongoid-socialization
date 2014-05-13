@@ -100,7 +100,7 @@ GEM
       activesupport (= 4.1.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.1.1)
+    rake (10.3.1)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.4)
       ffi (>= 0.5.0)
@@ -150,6 +150,6 @@ DEPENDENCIES
   mongoid-rspec (~> 1.10.0)
   mongoid-socialization!
   pry (~> 0.9.12.6)
-  rake (~> 10.1.1)
+  rake (~> 10.3.1)
   rspec (~> 2.14.1)
   simplecov (~> 0.8.2)
