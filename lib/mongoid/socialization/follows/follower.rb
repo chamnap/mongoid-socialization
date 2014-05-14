@@ -3,7 +3,7 @@ module Mongoid
     extend ActiveSupport::Concern
 
     included do
-      field :followings_count, type: Hash,  default: {}
+      field         :followings_count, type: Hash,  default: {}
 
       after_destroy { Mongoid::Socialization.follow_model.remove_followables(self) }
     end

@@ -8,5 +8,5 @@ class User
   include Mongoid::Conversationable
   include Mongoid::Mentionable
 
-  field   :name, type: String
+  field           :name,                  type: String
 end
