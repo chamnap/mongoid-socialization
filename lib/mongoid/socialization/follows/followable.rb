@@ -1,38 +1,40 @@
 module Mongoid
-  module Followable
-    extend ActiveSupport::Concern
+  module Socialization
+    module Followable
+      extend ActiveSupport::Concern
 
-    included do
-      field :followers_count, type: Hash,  default: {}
+      included do
+        field :followers_count, type: Hash,  default: {}
 
-      after_destroy { Mongoid::Socialization.follow_model.remove_followers(self) }
-    end
-
-    def followers_count(klass=nil)
-      if klass.nil?
-        read_attribute(:followers_count).values.sum
-      else
-        read_attribute(:followers_count)[klass.name]
+        after_destroy { Mongoid::Socialization.follow_klass.remove_followers(self) }
       end
-    end
 
-    def update_followers_count!(klass, count)
-      hash = read_attribute(:followers_count)
-      hash[klass.name] = count
+      def followers_count(klass=nil)
+        if klass.nil?
+          read_attribute(:followers_count).values.sum
+        else
+          read_attribute(:followers_count)[klass.name]
+        end
+      end
 
-      update_attribute :followers_count, hash
-    end
+      def update_followers_count!(klass, count)
+        hash = read_attribute(:followers_count)
+        hash[klass.name] = count
 
-    def followed_by?(follower)
-      Socialization::FollowModel.followed?(follower, self)
-    end
+        update_attribute :followers_count, hash
+      end
 
-    def followers(klass)
-      Socialization::FollowModel.followers(self, klass)
-    end
+      def followed_by?(follower)
+        Socialization.follow_klass.followed?(follower, self)
+      end
 
-    def follower_ids(klass)
-      followers(klass).pluck("_id")
+      def followers(klass)
+        Socialization.follow_klass.followers(self, klass)
+      end
+
+      def follower_ids(klass)
+        followers(klass).pluck("_id")
+      end
     end
   end
 end

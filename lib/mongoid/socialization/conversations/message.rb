@@ -1,6 +1,6 @@
 module Mongoid
   module Socialization
-    class MessageModel
+    class Message
       include Mongoid::Document
       include Mongoid::Timestamps
 
@@ -10,8 +10,8 @@ module Mongoid
       field       :text,            type: String
 
       # Relations
-      embedded_in :conversation,    class_name: Mongoid::Socialization.conversation_model.to_s
-      belongs_to  :sender,          class_name: Mongoid::Socialization.conversationer_model.to_s
+      embedded_in :conversation,    class_name: Mongoid::Socialization.conversation_klass.to_s
+      belongs_to  :sender,          class_name: Mongoid::Socialization.conversationer_klass.to_s
 
       validates   :text, :sender,
                   presence: true

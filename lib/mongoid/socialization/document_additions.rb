@@ -14,7 +14,7 @@ module Mongoid
       module ClassMethods
         METHODS.each do |method|
           define_method(method) do
-            module_name = "Mongoid::#{method.gsub(/\?$/, '').camelize}"
+            module_name = "Mongoid::Socialization::#{method.gsub(/\?$/, '').camelize}"
             included_modules.include?(module_name.constantize)
           end
         end

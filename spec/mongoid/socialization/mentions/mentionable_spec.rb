@@ -1,20 +1,21 @@
 require "spec_helper"
 
-module Mongoid
+module Mongoid::Socialization
   describe Mentionable do
-    let(:user)    { User.create!(name: "chamnap") }
-    let(:admin)   { Admin.create!(name: "chamnap") }
-    let(:product) { Product.create!(name: "Laptop") }
-    let(:comment) { product.comments.create!(text: "@chamnap, @admin, let's check this out!") }
+    let(:mention_klass) { Mongoid::Socialization.mention_klass }
+    let(:user)          { User.create!(name: "chamnap") }
+    let(:admin)         { Admin.create!(name: "chamnap") }
+    let(:product)       { Product.create!(name: "Laptop") }
+    let(:comment)       { product.comments.create!(text: "@chamnap, @admin, let's check this out!") }
 
     context "#mentioned_by?" do
-      it "should receive #mentioned_by? on MentionModel" do
-        Socialization::MentionModel.should_receive(:mentioned?).with(comment, user)
+      it "should receive #mentioned_by? on Mention" do
+        mention_klass.should_receive(:mentioned?).with(comment, user)
 
         user.mentioned_by?(comment)
       end
 
-      it "raises exception when the MentionModel is not mentioner" do
+      it "raises exception when the Mention is not mentioner" do
         expect {
           user.mentioned_by?(:foo)
         }.to raise_error(Mongoid::Socialization::ArgumentError)
@@ -22,8 +23,8 @@ module Mongoid
     end
 
     context "#mentioners" do
-      it "should receive #mentioners on MentionModel" do
-        Socialization::MentionModel.should_receive(:mentioners).with(user, User)
+      it "should receive #mentioners on Mention" do
+        mention_klass.should_receive(:mentioners).with(user, User)
 
         user.mentioners(User)
       end

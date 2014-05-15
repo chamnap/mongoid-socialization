@@ -27,17 +27,17 @@ Mongoid-Socialization's composed of 4 modules:
 # app/models/user.rb
 class User
   include Mongoid::Document
-  include Mongoid::Liker
+  include Mongoid::Socialization::Liker
 end
 
 # app/models/page.rb
 class Page
   include Mongoid::Document
-  include Mongoid::Likeable
+  include Mongoid::Socialization::Likeable
 end
 ```
 
-`Mongoid::Liker` module
+`Mongoid::Socialization::Liker` module
 
     user.like!(page)
     user.unlike!(page)
@@ -46,7 +46,7 @@ end
     user.likeables(Page)
     user.likeable_ids(User)
 
-`Mongoid::Likeable` module
+`Mongoid::Socialization::Likeable` module
 
     page.liked_by?(user)
     page.likers(User)
@@ -59,17 +59,17 @@ end
 # app/models/user.rb
 class User
   include Mongoid::Document
-  include Mongoid::Follower
+  include Mongoid::Socialization::Follower
 end
 
 # app/models/page.rb
 class Page
   include Mongoid::Document
-  include Mongoid::Followable
+  include Mongoid::Socialization::Followable
 end
 ```
 
-`Mongoid::Follower` module
+`Mongoid::Socialization::Follower` module
 
     user.follow!(page)
     user.unfollow!(page)
@@ -79,7 +79,7 @@ end
     user.followings_ids(Page)
     user.followings_count(Page)
 
-`Mongoid::Followable` module
+`Mongoid::Socialization::Followable` module
 
     page.followed_by?(user)
     page.followers(User)
@@ -92,17 +92,17 @@ end
 # app/models/user.rb
 class User
   include Mongoid::Document
-  include Mongoid::WishLister
+  include Mongoid::Socialization::WishLister
 end
 
 # app/models/product.rb
 class Product
   include Mongoid::Document
-  include Mongoid::WishListable
+  include Mongoid::Socialization::WishListable
 end
 ```
 
-`Mongoid::WishLister` module
+`Mongoid::Socialization::WishLister` module
 
     user.wish_list!(page)
     user.unwish_list!(page)
@@ -111,7 +111,7 @@ end
     user.wish_listables(Page)
     user.wish_listable_ids(Page)
 
-`Mongoid::WishListable` module
+`Mongoid::Socialization::WishListable` module
 
     page.wish_listed_by?(user)
     page.wish_listers(User)
@@ -124,17 +124,17 @@ end
 # app/models/user.rb
 class User
   include Mongoid::Document
-  include Mongoid::Mentionable
+  include Mongoid::Socialization::Mentionable
 end
 
 # app/models/comment.rb
 class Comment
   include Mongoid::Document
-  include Mongoid::Mentioner
+  include Mongoid::Socialization::Mentioner
 end
 ```
 
-`Mongoid::Mentioner` module
+`Mongoid::Socialization::Mentioner` module
 
     comment.mention!(user)
     comment.unmention!(user)
@@ -143,7 +143,7 @@ end
     comment.mentionables(User)
     comment.mentionable_ids(User)
 
-`Mongoid::Mentionable` module
+`Mongoid::Socialization::Mentionable` module
 
     user.mentioned_by?(comment)
     user.mentioners(Comment)

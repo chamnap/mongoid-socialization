@@ -1,21 +1,22 @@
 require "spec_helper"
 
-module Mongoid
+module Mongoid::Socialization
   describe Followable do
-    let(:user1)   { User.create!(name: "chamnap1") }
-    let(:user2)   { User.create!(name: "chamnap2") }
-    let(:admin1)  { Admin.create!(name: "chamnap1") }
-    let(:admin2)  { Admin.create!(name: "chamnap2") }
-    let(:page)    { Page.create!(name: "page1") }
+    let(:follow_klass) { Mongoid::Socialization.follow_klass }
+    let(:user1)        { User.create!(name: "chamnap1") }
+    let(:user2)        { User.create!(name: "chamnap2") }
+    let(:admin1)       { Admin.create!(name: "chamnap1") }
+    let(:admin2)       { Admin.create!(name: "chamnap2") }
+    let(:page)         { Page.create!(name: "page1") }
 
     context "#followed_by?" do
-      it "should receive #followed_by? on FollowModel" do
-        Socialization::FollowModel.should_receive(:followed?).with(user1, user2)
+      it "should receive #followed_by? on Follow" do
+        follow_klass.should_receive(:followed?).with(user1, user2)
 
         user2.followed_by?(user1)
       end
 
-      it "raises exception when the FollowModel is not follower" do
+      it "raises exception when the Follow is not follower" do
         expect {
           user2.followed_by?(:foo)
         }.to raise_error(Mongoid::Socialization::ArgumentError)
@@ -23,8 +24,8 @@ module Mongoid
     end
 
     context "#followers" do
-      it "should receive #followers on FollowModel" do
-        Socialization::FollowModel.should_receive(:followers).with(user2, User)
+      it "should receive #followers on Follow" do
+        follow_klass.should_receive(:followers).with(user2, User)
 
         user2.followers(User)
       end

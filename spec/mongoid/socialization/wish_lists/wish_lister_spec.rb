@@ -1,13 +1,14 @@
 require "spec_helper"
 
-module Mongoid
-  describe Liker do
-    let(:user)    { User.create!(name: "chamnap") }
-    let(:product) { Product.create!(name: "Laptop") }
+module Mongoid::Socialization
+  describe WishLister do
+    let(:wish_list_klass) { Mongoid::Socialization.wish_list_klass }
+    let(:user)            { User.create!(name: "chamnap") }
+    let(:product)         { Product.create!(name: "Laptop") }
 
     context "#wish_list!" do
       it "should receive #wish_list! on WishListModel" do
-        Socialization::WishListModel.should_receive(:wish_list!).with(user, product)
+        wish_list_klass.should_receive(:wish_list!).with(user, product)
 
         user.wish_list!(product)
       end
@@ -21,7 +22,7 @@ module Mongoid
 
     context "#unwish_list!" do
       it "should receive #unwish_list! on WishListModel" do
-        Socialization::WishListModel.should_receive(:unwish_list!).with(user, product)
+        wish_list_klass.should_receive(:unwish_list!).with(user, product)
 
         user.unwish_list!(product)
       end
@@ -35,7 +36,7 @@ module Mongoid
 
     context "#toggle_wish_list!" do
       it "should receive #toggle_wish_list! on WishListModel" do
-        Socialization::WishListModel.should_receive(:toggle_wish_list!).with(user, product)
+        wish_list_klass.should_receive(:toggle_wish_list!).with(user, product)
 
         user.toggle_wish_list!(product)
       end
@@ -49,7 +50,7 @@ module Mongoid
 
     context "#wish_listed?" do
       it "should receive #wish_listed? on WishListModel" do
-        Socialization::WishListModel.should_receive(:wish_listed?).with(user, product)
+        wish_list_klass.should_receive(:wish_listed?).with(user, product)
 
         user.wish_listed?(product)
       end
@@ -63,7 +64,7 @@ module Mongoid
 
     context "#wish_listables" do
       it "should receive #wish_listables on WishListModel" do
-        Socialization::WishListModel.should_receive(:wish_listables).with(user, Product)
+        wish_list_klass.should_receive(:wish_listables).with(user, Product)
 
         user.wish_listables(Product)
       end

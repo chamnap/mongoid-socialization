@@ -11,7 +11,7 @@ describe User, "#send_message!" do
     end
 
     it "returns message object" do
-      expect(@message).to be_instance_of(Mongoid::Socialization.message_model)
+      expect(@message).to be_instance_of(Mongoid::Socialization.message_klass)
     end
 
     it "returns @message object with correct data" do

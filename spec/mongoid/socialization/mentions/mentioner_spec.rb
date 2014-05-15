@@ -1,14 +1,15 @@
 require "spec_helper"
 
-module Mongoid
+module Mongoid::Socialization
   describe Mentioner do
-    let(:user)    { User.create!(name: "chamnap") }
-    let(:product) { Product.create!(name: "Laptop") }
-    let(:comment) { product.comments.create!(text: "@chamnap, @admin, let's check this out!") }
+    let(:mention_klass) { Mongoid::Socialization.mention_klass }
+    let(:user)          { User.create!(name: "chamnap") }
+    let(:product)       { Product.create!(name: "Laptop") }
+    let(:comment)       { product.comments.create!(text: "@chamnap, @admin, let's check this out!") }
 
     context "#mention!" do
-      it "should receive #mention! on MentionModel" do
-        Socialization::MentionModel.should_receive(:mention!).with(comment, user)
+      it "should receive #mention! on Mention" do
+        mention_klass.should_receive(:mention!).with(comment, user)
 
         comment.mention!(user)
       end
@@ -21,8 +22,8 @@ module Mongoid
     end
 
     context "#unmention!" do
-      it "should receive #unmention! on MentionModel" do
-        Socialization::MentionModel.should_receive(:unmention!).with(comment, user)
+      it "should receive #unmention! on Mention" do
+        mention_klass.should_receive(:unmention!).with(comment, user)
 
         comment.unmention!(user)
       end
@@ -35,8 +36,8 @@ module Mongoid
     end
 
     context "#toggle_mention!" do
-      it "should receive #toggle_mention! on MentionModel" do
-        Socialization::MentionModel.should_receive(:toggle_mention!).with(comment, user)
+      it "should receive #toggle_mention! on Mention" do
+        mention_klass.should_receive(:toggle_mention!).with(comment, user)
 
         comment.toggle_mention!(user)
       end
@@ -49,8 +50,8 @@ module Mongoid
     end
 
     context "#mentioned?" do
-      it "should receive #mentioned? on MentionModel" do
-        Socialization::MentionModel.should_receive(:mentioned?).with(comment, user)
+      it "should receive #mentioned? on Mention" do
+        mention_klass.should_receive(:mentioned?).with(comment, user)
 
         comment.mentioned?(user)
       end
@@ -63,8 +64,8 @@ module Mongoid
     end
 
     context "#mentionables" do
-      it "should receive #mentionables on MentionModel" do
-        Socialization::MentionModel.should_receive(:mentionables).with(comment, User)
+      it "should receive #mentionables on Mention" do
+        mention_klass.should_receive(:mentionables).with(comment, User)
 
         comment.mentionables(User)
       end

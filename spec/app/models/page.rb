@@ -1,9 +1,9 @@
 class Page
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Likeable
-  include Mongoid::Followable
-  include Mongoid::WishListable
+  include Mongoid::Socialization::Likeable
+  include Mongoid::Socialization::Followable
+  include Mongoid::Socialization::WishListable
 
   field       :name,      type: String
 

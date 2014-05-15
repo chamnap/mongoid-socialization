@@ -1,19 +1,20 @@
 require "spec_helper"
 
-module Mongoid
+module Mongoid::Socialization
   describe Likeable do
-    let(:user)    { User.create!(name: "chamnap") }
-    let(:admin)   { Admin.create!(name: "chamnap") }
-    let(:product) { Product.create!(name: "Laptop") }
+    let(:like_klass) { Mongoid::Socialization.like_klass }
+    let(:user)       { User.create!(name: "chamnap") }
+    let(:admin)      { Admin.create!(name: "chamnap") }
+    let(:product)    { Product.create!(name: "Laptop") }
 
     context "#liked_by?" do
-      it "should receive #liked_by? on LikeModel" do
-        Socialization::LikeModel.should_receive(:liked?).with(user, product)
+      it "should receive #liked_by? on Like" do
+        like_klass.should_receive(:liked?).with(user, product)
 
         product.liked_by?(user)
       end
 
-      it "raises exception when the LikeModel is not liker" do
+      it "raises exception when the Like is not liker" do
         expect {
           product.liked_by?(:foo)
         }.to raise_error(Mongoid::Socialization::ArgumentError)
@@ -21,8 +22,8 @@ module Mongoid
     end
 
     context "#likers" do
-      it "should receive #likers on LikeModel" do
-        Socialization::LikeModel.should_receive(:likers).with(product, User)
+      it "should receive #likers on Like" do
+        like_klass.should_receive(:likers).with(product, User)
 
         product.likers(User)
       end

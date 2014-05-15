@@ -1,110 +1,114 @@
 module Mongoid
   module Socialization
-    class LikeModel
-      include Mongoid::Document
-      include Mongoid::Timestamps
+    module LikeModel
+      extend ActiveSupport::Concern
 
-      store_in    collection: "mongoid_socialization_likes"
+      included do
+        include Mongoid::Document
+        include Mongoid::Timestamps
 
-      # Indexes
-      index({ likeable_id: 1, likeable_type: 1 }, { background: true })
-      index({ liker_id: 1, liker_type: 1 }, { background: true })
+        # Indexes
+        index({ likeable_id: 1, likeable_type: 1 }, { background: true })
+        index({ liker_id: 1, liker_type: 1 }, { background: true })
 
-      # Fields
-      field       :liker_type,    type: String
-      field       :liker_id,      type: Integer
-      field       :likeable_type, type: String
-      field       :likeable_id,   type: Integer
+        # Fields
+        field       :liker_type,    type: String
+        field       :liker_id,      type: Integer
+        field       :likeable_type, type: String
+        field       :likeable_id,   type: Integer
 
-      # Relations
-      belongs_to  :liker,         polymorphic: true
-      belongs_to  :likeable,      polymorphic: true
+        # Relations
+        belongs_to  :liker,         polymorphic: true
+        belongs_to  :likeable,      polymorphic: true
 
-      # Scopes
-      scope :liked_by, ->(liker) {
-        where(liker_type: liker.class.name, liker_id: liker.id)
-      }
+        # Scopes
+        scope :liked_by, ->(liker) {
+          where(liker_type: liker.class.name, liker_id: liker.id)
+        }
 
-      scope :liking,   ->(likeable) {
-        where(likeable_type: likeable.class.name, likeable_id: likeable.id)
-      }
-
-      def self.like!(liker, likeable)
-        return false if liked?(liker, likeable)
-
-        self.create!(liker: liker, likeable: likeable)
-        likeable.update_likes_count!(liker.class, likers(likeable, liker.class).size)
-        true
+        scope :liking,   ->(likeable) {
+          where(likeable_type: likeable.class.name, likeable_id: likeable.id)
+        }
       end
 
-      def self.unlike!(liker, likeable)
-        return false unless liked?(liker, likeable)
+      module ClassMethods
+        def like!(liker, likeable)
+          return false if liked?(liker, likeable)
 
-        like_for(liker, likeable).delete_all
-        likeable.update_likes_count!(liker.class, likers(likeable, liker.class).size)
-        true
-      end
-
-      def self.toggle_like!(liker, likeable)
-        if liked?(liker, likeable)
-          unlike!(liker, likeable)
-        else
-          like!(liker, likeable)
-        end
-      end
-
-      def self.liked?(liker, likeable)
-        validate_liker!(liker)
-        validate_likeable!(likeable)
-
-        like_for(liker, likeable).present?
-      end
-
-      def self.likeables(liker, klass)
-        validate_liker!(liker)
-        validate_likeable!(klass)
-
-        likeable_ids = only(:likeable_id).
-          where(likeable_type: klass.name).
-          where(liker_type: liker.class.name).
-          where(liker_id: liker.id).
-          collect(&:likeable_id)
-        klass.where(:_id.in => likeable_ids)
-      end
-
-      def self.likers(likeable, klass)
-        validate_liker!(klass)
-        validate_likeable!(likeable)
-
-        liker_ids = only(:liker_id).
-          where(liker_type: klass.name).
-          where(likeable_type: likeable.class.name).
-          where(likeable_id: likeable.id).
-          collect(&:liker_id)
-        klass.where(:_id.in => liker_ids)
-      end
-
-      def self.remove_likeables(liker)
-        where(liker_type: liker.class.name, liker_id: liker.id).delete_all
-      end
-
-      def self.remove_likers(likeable)
-        where(likeable_type: likeable.class.name, likeable_id: likeable.id).delete_all
-      end
-
-      private
-
-        def self.like_for(liker, likeable)
-          liked_by(liker).liking(likeable)
+          create!(liker: liker, likeable: likeable)
+          likeable.update_likes_count!(liker.class, likers(likeable, liker.class).size)
+          true
         end
 
-        def self.validate_liker!(liker)
-          raise Socialization::ArgumentError, "#{liker} is not liker!"        unless liker.respond_to?(:liker?) && liker.liker?
+        def unlike!(liker, likeable)
+          return false unless liked?(liker, likeable)
+
+          like_for(liker, likeable).delete_all
+          likeable.update_likes_count!(liker.class, likers(likeable, liker.class).size)
+          true
         end
 
-        def self.validate_likeable!(likeable)
-          raise Socialization::ArgumentError, "#{likeable} is not likeable!"  unless likeable.respond_to?(:likeable?) && likeable.likeable?
+        def toggle_like!(liker, likeable)
+          if liked?(liker, likeable)
+            unlike!(liker, likeable)
+          else
+            like!(liker, likeable)
+          end
         end
+
+        def liked?(liker, likeable)
+          validate_liker!(liker)
+          validate_likeable!(likeable)
+
+          like_for(liker, likeable).present?
+        end
+
+        def likeables(liker, klass)
+          validate_liker!(liker)
+          validate_likeable!(klass)
+
+          likeable_ids = only(:likeable_id).
+            where(likeable_type: klass.name).
+            where(liker_type: liker.class.name).
+            where(liker_id: liker.id).
+            collect(&:likeable_id)
+          klass.where(:_id.in => likeable_ids)
+        end
+
+        def likers(likeable, klass)
+          validate_liker!(klass)
+          validate_likeable!(likeable)
+
+          liker_ids = only(:liker_id).
+            where(liker_type: klass.name).
+            where(likeable_type: likeable.class.name).
+            where(likeable_id: likeable.id).
+            collect(&:liker_id)
+          klass.where(:_id.in => liker_ids)
+        end
+
+        def remove_likeables(liker)
+          where(liker_type: liker.class.name, liker_id: liker.id).delete_all
+        end
+
+        def remove_likers(likeable)
+          where(likeable_type: likeable.class.name, likeable_id: likeable.id).delete_all
+        end
+
+        private
+
+          def like_for(liker, likeable)
+            liked_by(liker).liking(likeable)
+          end
+
+          def validate_liker!(liker)
+            raise Socialization::ArgumentError, "#{liker} is not liker!"        unless liker.respond_to?(:liker?) && liker.liker?
+          end
+
+          def validate_likeable!(likeable)
+            raise Socialization::ArgumentError, "#{likeable} is not likeable!"  unless likeable.respond_to?(:likeable?) && likeable.likeable?
+          end
+      end
     end
   end
 end

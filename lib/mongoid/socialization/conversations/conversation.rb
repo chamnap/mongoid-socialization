@@ -1,6 +1,6 @@
 module Mongoid
   module Socialization
-    class ConversationModel
+    class Conversation
       include Mongoid::Document
       include Mongoid::Timestamps
 
@@ -10,8 +10,8 @@ module Mongoid
       index({ participant_ids: 1 }, { background: true })
 
       ## Relations
-      has_and_belongs_to_many :participants, class_name: Mongoid::Socialization.conversationer_model.to_s
-      embeds_many             :messages, class_name: Mongoid::Socialization.message_model.to_s
+      has_and_belongs_to_many :participants, class_name: Mongoid::Socialization.conversationer_klass.to_s
+      embeds_many             :messages, class_name: Mongoid::Socialization.message_klass.to_s
 
       def self.create_with_two_participants!(participant, another_participant)
         where(participant_ids: [participant.id, another_participant.id].sort).

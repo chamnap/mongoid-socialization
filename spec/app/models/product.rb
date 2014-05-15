@@ -1,8 +1,8 @@
 class Product
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Likeable
-  include Mongoid::WishListable
+  include Mongoid::Socialization::Likeable
+  include Mongoid::Socialization::WishListable
 
   field       :name,      type: String
 

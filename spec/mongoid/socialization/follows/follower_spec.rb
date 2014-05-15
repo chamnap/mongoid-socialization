@@ -1,17 +1,18 @@
 require "spec_helper"
 
-module Mongoid
+module Mongoid::Socialization
   describe Follower do
-    let(:user1)   { User.create!(name: "chamnap1") }
-    let(:user2)   { User.create!(name: "chamnap2") }
-    let(:admin1)  { Admin.create!(name: "chamnap1") }
-    let(:admin2)  { Admin.create!(name: "chamnap2") }
-    let(:page1)   { Page.create!(name: "page1") }
-    let(:page2)   { Page.create!(name: "page2") }
+    let(:follow_klass) { Mongoid::Socialization.follow_klass }
+    let(:user1)        { User.create!(name: "chamnap1") }
+    let(:user2)        { User.create!(name: "chamnap2") }
+    let(:admin1)       { Admin.create!(name: "chamnap1") }
+    let(:admin2)       { Admin.create!(name: "chamnap2") }
+    let(:page1)        { Page.create!(name: "page1") }
+    let(:page2)        { Page.create!(name: "page2") }
 
     context "#follow!" do
-      it "should receive #follow! on FollowModel" do
-        Socialization::FollowModel.should_receive(:follow!).with(user1, user2)
+      it "should receive #follow! on Follow" do
+        follow_klass.should_receive(:follow!).with(user1, user2)
 
         user1.follow!(user2)
       end
@@ -24,8 +25,8 @@ module Mongoid
     end
 
     context "#unfollow!" do
-      it "should receive #unfollow! on FollowModel" do
-        Socialization::FollowModel.should_receive(:unfollow!).with(user1, user2)
+      it "should receive #unfollow! on Follow" do
+        follow_klass.should_receive(:unfollow!).with(user1, user2)
 
         user1.unfollow!(user2)
       end
@@ -38,8 +39,8 @@ module Mongoid
     end
 
     context "#toggle_follow!" do
-      it "should receive #toggle_follow! on FollowModel" do
-        Socialization::FollowModel.should_receive(:toggle_follow!).with(user1, user2)
+      it "should receive #toggle_follow! on Follow" do
+        follow_klass.should_receive(:toggle_follow!).with(user1, user2)
 
         user1.toggle_follow!(user2)
       end
@@ -52,8 +53,8 @@ module Mongoid
     end
 
     context "#followed?" do
-      it "should receive #followed? on FollowModel" do
-        Socialization::FollowModel.should_receive(:followed?).with(user1, user2)
+      it "should receive #followed? on Follow" do
+        follow_klass.should_receive(:followed?).with(user1, user2)
 
         user1.followed?(user2)
       end
@@ -66,8 +67,8 @@ module Mongoid
     end
 
     context "#followings" do
-      it "should receive #followings on FollowModel" do
-        Socialization::FollowModel.should_receive(:followables).with(user1, User)
+      it "should receive #followings on Follow" do
+        follow_klass.should_receive(:followables).with(user1, User)
 
         user1.followings(User)
       end

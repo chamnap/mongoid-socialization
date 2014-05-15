@@ -1,7 +1,7 @@
 class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Mentioner
+  include Mongoid::Socialization::Mentioner
 
   field         :text,            type: String
 
