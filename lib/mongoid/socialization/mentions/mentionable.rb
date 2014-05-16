@@ -4,9 +4,11 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        field :mentions_count, type: Hash, default: {}
+        field                   :mentions_count, type: Hash, default: {}
 
-        after_destroy { Socialization.mention_klass.remove_mentioners(self) }
+        after_destroy           { mention_klass.remove_mentioners(self) }
+        define_model_callbacks  :mention, :unmention
+        observable              :mention, :unmention
       end
 
       def mentions_count(klass=nil)
@@ -21,15 +23,15 @@ module Mongoid
         hash = read_attribute(:mentions_count)
         hash[klass.name] = count
 
-        update_attribute :mentions_count, hash
+        set mentions_count: hash
       end
 
       def mentioned_by?(mentioner)
-        Socialization.mention_klass.mentioned?(mentioner, self)
+        mention_klass.mentioned?(mentioner, self)
       end
 
       def mentioners(klass)
-        Socialization.mention_klass.mentioners(self, klass)
+        mention_klass.mentioners(self, klass)
       end
 
       def mentioner_ids(klass)

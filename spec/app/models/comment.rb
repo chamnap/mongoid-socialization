@@ -3,9 +3,10 @@ class Comment
   include Mongoid::Timestamps
   include Mongoid::Socialization::Mentioner
 
-  field         :text,            type: String
+  field           :text,            type: String
 
-  belongs_to    :product,         polymorphic: true
-  belongs_to    :page,            polymorphic: true
-  belongs_to    :commenter,       class_name: "User"
+  belongs_to      :product,         polymorphic: true
+  belongs_to      :page,            polymorphic: true
+  belongs_to      :commenter,       class_name: "User"
+
 end

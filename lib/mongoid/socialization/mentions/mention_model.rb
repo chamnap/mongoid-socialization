@@ -22,11 +22,11 @@ module Mongoid
         belongs_to  :mentionable,       polymorphic: true
 
         # Scopes
-        scope :mentioned_by, ->(mentioner) {
+        scope       :mentioned_by,      ->(mentioner) {
           where(mentioner_type: mentioner.class.name, mentioner_id: mentioner.id)
         }
 
-        scope :mentioning,   ->(mentionable) {
+        scope       :mentioning,        ->(mentionable) {
           where(mentionable_type: mentionable.class.name, mentionable_id: mentionable.id)
         }
       end
@@ -95,19 +95,17 @@ module Mongoid
           where(mentionable_type: mentionable.class.name, mentionable_id: mentionable.id).delete_all
         end
 
-        private
+        def mention_for(mentioner, mentionable)
+          mentioned_by(mentioner).mentioning(mentionable)
+        end
 
-          def mention_for(mentioner, mentionable)
-            mentioned_by(mentioner).mentioning(mentionable)
-          end
+        def validate_mentioner!(mentioner)
+          raise Socialization::ArgumentError, "#{mentioner} is not mentioner!"        unless mentioner.respond_to?(:mentioner?) && mentioner.mentioner?
+        end
 
-          def validate_mentioner!(mentioner)
-            raise Socialization::ArgumentError, "#{mentioner} is not mentioner!"        unless mentioner.respond_to?(:mentioner?) && mentioner.mentioner?
-          end
-
-          def validate_mentionable!(mentionable)
-            raise Socialization::ArgumentError, "#{mentionable} is not mentionable!"    unless mentionable.respond_to?(:mentionable?) && mentionable.mentionable?
-          end
+        def validate_mentionable!(mentionable)
+          raise Socialization::ArgumentError, "#{mentionable} is not mentionable!"    unless mentionable.respond_to?(:mentionable?) && mentionable.mentionable?
+        end
       end
     end
   end

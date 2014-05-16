@@ -56,5 +56,38 @@ module Mongoid::Socialization
         expect(user.persisted?).to be_true
       end
     end
+
+    context "#update_wish_lists_count!" do
+      it "updates wish_lists_count per klass" do
+        product.update_wish_lists_count!(User, 1)
+        product.update_wish_lists_count!(Admin, 1)
+
+        product.reload
+        expect(product.wish_lists_count).to eq(2)
+        expect(product.wish_lists_count(User)).to eq(1)
+        expect(product.wish_lists_count(Admin)).to eq(1)
+      end
+    end
+
+    context "callbacks" do
+      it "invokes #after_wish_list callbacks" do
+        expect(product.after_wish_list_called).to be_false
+
+        user.wish_list!(product)
+
+        expect(product.after_wish_list_called).to be_true
+      end
+
+      it "invokes #after_unwish_list callbacks" do
+        user.wish_list!(product)
+
+        expect(product.after_wish_list_called).to be_true
+        expect(product.after_unwish_list_called).to be_false
+
+        user.unwish_list!(product)
+
+        expect(product.after_unwish_list_called).to be_true
+      end
+    end
   end
 end

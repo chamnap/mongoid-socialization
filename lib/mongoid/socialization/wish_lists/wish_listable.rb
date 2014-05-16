@@ -4,9 +4,11 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        field :wish_lists_count, type: Hash, default: {}
+        field                   :wish_lists_count, type: Hash, default: {}
 
-        after_destroy { Socialization.wish_list_klass.remove_wish_listers(self) }
+        after_destroy           { wish_list_klass.remove_wish_listers(self) }
+        define_model_callbacks  :wish_list, :unwish_list
+        observable              :wish_list, :unwish_list
       end
 
       def wish_lists_count(klass=nil)
@@ -21,15 +23,15 @@ module Mongoid
         hash = read_attribute(:wish_lists_count)
         hash[klass.name] = count
 
-        update_attribute :wish_lists_count, hash
+        set wish_lists_count: hash
       end
 
       def wish_listed_by?(wish_lister)
-        Socialization.wish_list_klass.wish_listed?(wish_lister, self)
+        wish_list_klass.wish_listed?(wish_lister, self)
       end
 
       def wish_listers(klass)
-        Socialization.wish_list_klass.wish_listers(self, klass)
+        wish_list_klass.wish_listers(self, klass)
       end
 
       def wish_lister_ids(klass)

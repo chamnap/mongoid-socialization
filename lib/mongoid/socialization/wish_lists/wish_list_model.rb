@@ -95,19 +95,17 @@ module Mongoid
           where(wish_listable_type: wish_listable.class.name, wish_listable_id: wish_listable.id).delete_all
         end
 
-        private
+        def wish_list_for(wish_lister, wish_listable)
+          wish_listed_by(wish_lister).wish_listing(wish_listable)
+        end
 
-          def wish_list_for(wish_lister, wish_listable)
-            wish_listed_by(wish_lister).wish_listing(wish_listable)
-          end
+        def validate_wish_lister!(wish_lister)
+          raise Socialization::ArgumentError, "#{wish_lister} is not wish_lister!"        unless wish_lister.respond_to?(:wish_lister?) && wish_lister.wish_lister?
+        end
 
-          def validate_wish_lister!(wish_lister)
-            raise Socialization::ArgumentError, "#{wish_lister} is not wish_lister!"        unless wish_lister.respond_to?(:wish_lister?) && wish_lister.wish_lister?
-          end
-
-          def validate_wish_listable!(wish_listable)
-            raise Socialization::ArgumentError, "#{wish_listable} is not wish_listable!"    unless wish_listable.respond_to?(:wish_listable?) && wish_listable.wish_listable?
-          end
+        def validate_wish_listable!(wish_listable)
+          raise Socialization::ArgumentError, "#{wish_listable} is not wish_listable!"    unless wish_listable.respond_to?(:wish_listable?) && wish_listable.wish_listable?
+        end
       end
     end
   end

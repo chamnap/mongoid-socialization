@@ -58,5 +58,36 @@ module Mongoid::Socialization
         expect(comment.persisted?).to be_true
       end
     end
+
+    context "#update_mentions_count!" do
+      it "updates mentions_count per klass" do
+        user.update_mentions_count!(Comment, 1)
+
+        user.reload
+        expect(user.mentions_count).to eq(1)
+        expect(user.mentions_count(Comment)).to eq(1)
+      end
+    end
+
+    context "callbacks" do
+      it "invokes #after_mention callbacks" do
+        expect(user.after_mention_called).to be_false
+
+        comment.mention!(user)
+
+        expect(user.after_mention_called).to be_true
+      end
+
+      it "invokes #after_unmention callbacks" do
+        comment.mention!(user)
+
+        expect(user.after_mention_called).to be_true
+        expect(user.after_unmention_called).to be_false
+
+        comment.unmention!(user)
+
+        expect(user.after_unmention_called).to be_true
+      end
+    end
   end
 end
