@@ -76,6 +76,7 @@ module Mongoid::Socialization
         comment.mention!(user)
 
         expect(user.after_mention_called).to be_true
+        expect(user.mentioner).to eq(comment)
       end
 
       it "invokes #after_unmention callbacks" do
@@ -87,6 +88,7 @@ module Mongoid::Socialization
         comment.unmention!(user)
 
         expect(user.after_unmention_called).to be_true
+        expect(user.unmentioner).to eq(comment)
       end
     end
   end

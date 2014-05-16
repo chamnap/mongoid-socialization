@@ -76,6 +76,7 @@ module Mongoid::Socialization
         user.like!(product)
 
         expect(product.after_like_called).to be_true
+        expect(product.liker).to eq(user)
       end
 
       it "invokes #after_unlike callbacks" do
@@ -87,6 +88,7 @@ module Mongoid::Socialization
         user.unlike!(product)
 
         expect(product.after_unlike_called).to be_true
+        expect(product.unliker).to eq(user)
       end
     end
   end

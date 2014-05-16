@@ -29,6 +29,7 @@ module Mongoid
 
         followable.run_callbacks :follow do
           follow_klass.follow!(self, followable)
+          followable.follower = self
         end
       end
 
@@ -37,6 +38,7 @@ module Mongoid
 
         followable.run_callbacks :unfollow do
           follow_klass.unfollow!(self, followable)
+          followable.unfollower = self
         end
       end
 

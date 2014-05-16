@@ -4,6 +4,7 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
+        attr_accessor           :wish_lister, :unwish_lister
         field                   :wish_lists_count, type: Hash, default: {}
 
         after_destroy           { wish_list_klass.remove_wish_listers(self) }

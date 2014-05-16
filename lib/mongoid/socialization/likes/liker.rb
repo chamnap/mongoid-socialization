@@ -12,6 +12,7 @@ module Mongoid
 
         likeable.run_callbacks :like do
           like_klass.like!(self, likeable)
+          likeable.liker = self
         end
       end
 
@@ -20,6 +21,7 @@ module Mongoid
 
         likeable.run_callbacks :unlike do
           like_klass.unlike!(self, likeable)
+          likeable.unliker = self
         end
       end
 

@@ -81,6 +81,7 @@ module Mongoid::Socialization
         user1.follow!(page)
 
         expect(page.after_follow_called).to be_true
+        expect(page.follower).to eq(user1)
       end
 
       it "invokes #after_unfollow callbacks" do
@@ -92,6 +93,7 @@ module Mongoid::Socialization
         user1.unfollow!(page)
 
         expect(page.after_unfollow_called).to be_true
+        expect(page.unfollower).to eq(user1)
       end
     end
   end

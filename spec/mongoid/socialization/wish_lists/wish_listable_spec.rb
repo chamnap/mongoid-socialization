@@ -76,6 +76,7 @@ module Mongoid::Socialization
         user.wish_list!(product)
 
         expect(product.after_wish_list_called).to be_true
+        expect(product.wish_lister).to eq(user)
       end
 
       it "invokes #after_unwish_list callbacks" do
@@ -87,6 +88,7 @@ module Mongoid::Socialization
         user.unwish_list!(product)
 
         expect(product.after_unwish_list_called).to be_true
+        expect(product.unwish_lister).to eq(user)
       end
     end
   end

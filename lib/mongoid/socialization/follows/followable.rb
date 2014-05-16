@@ -4,6 +4,7 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
+        attr_accessor           :follower, :unfollower
         field                   :followers_count, type: Hash,  default: {}
 
         after_destroy           { follow_klass.remove_followers(self) }

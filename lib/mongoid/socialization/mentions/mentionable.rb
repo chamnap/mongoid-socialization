@@ -4,6 +4,7 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
+        attr_accessor           :mentioner, :unmentioner
         field                   :mentions_count, type: Hash, default: {}
 
         after_destroy           { mention_klass.remove_mentioners(self) }

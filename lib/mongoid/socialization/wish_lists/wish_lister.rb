@@ -12,6 +12,7 @@ module Mongoid
 
         wish_listable.run_callbacks :wish_list do
           wish_list_klass.wish_list!(self, wish_listable)
+          wish_listable.wish_lister = self
         end
       end
 
@@ -20,6 +21,7 @@ module Mongoid
 
         wish_listable.run_callbacks :unwish_list do
           wish_list_klass.unwish_list!(self, wish_listable)
+          wish_listable.unwish_lister = self
         end
       end
 

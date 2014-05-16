@@ -12,6 +12,7 @@ module Mongoid
 
         mentionable.run_callbacks :mention do
           mention_klass.mention!(self, mentionable)
+          mentionable.mentioner = self
         end
       end
 
@@ -20,6 +21,7 @@ module Mongoid
 
         mentionable.run_callbacks :unmention do
           mention_klass.unmention!(self, mentionable)
+          mentionable.unmentioner = self
         end
       end
 

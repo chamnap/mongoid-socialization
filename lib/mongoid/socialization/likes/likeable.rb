@@ -4,6 +4,7 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
+        attr_accessor           :liker, :unliker
         field                   :likes_count, type: Hash, default: {}
 
         after_destroy           { like_klass.remove_likers(self) }
