@@ -17,6 +17,12 @@ Or install it yourself as:
 
     $ gem install mongoid-socialization
 
+#### Mongoid 4
+
+You need to add [mongoid-observers](https://rubygems.org/gems/mongoid-observers) into your Gemfile:
+
+    gem 'mongoid-observers'
+
 ## Usage
 
 Mongoid-Socialization's composed of 4 modules:

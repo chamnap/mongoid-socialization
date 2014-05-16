@@ -21,7 +21,11 @@ module Mongoid
         hash = read_attribute(:followings_count)
         hash[klass.name] = count
 
-        set(followings_count: hash)
+        if Mongoid::VERSION.start_with?("3.1")
+          set(:followings_count, hash)
+        else
+          set(followings_count: hash)
+        end
       end
 
       def follow!(followable)

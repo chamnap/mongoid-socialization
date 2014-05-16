@@ -24,7 +24,11 @@ module Mongoid
         hash = read_attribute(:followers_count)
         hash[klass.name] = count
 
-        set(followers_count: hash)
+        if Mongoid::VERSION.start_with?("3.1")
+          set(:followers_count, hash)
+        else
+          set(followers_count: hash)
+        end
       end
 
       def followed_by?(follower)

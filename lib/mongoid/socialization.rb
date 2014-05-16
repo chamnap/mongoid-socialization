@@ -1,7 +1,7 @@
 require "mongoid/socialization/version"
 
 require "active_support/concern"
-require "mongoid-observers"
+require "mongoid-observers"       unless Mongoid::VERSION.start_with?("3.1")
 
 module Mongoid
   module Socialization

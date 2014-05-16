@@ -24,7 +24,11 @@ module Mongoid
         hash = read_attribute(:wish_lists_count)
         hash[klass.name] = count
 
-        set wish_lists_count: hash
+        if Mongoid::VERSION.start_with?("3.1")
+          set(:wish_lists_count, hash)
+        else
+          set(wish_lists_count: hash)
+        end
       end
 
       def wish_listed_by?(wish_lister)

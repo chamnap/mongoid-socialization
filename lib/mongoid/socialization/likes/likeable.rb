@@ -24,7 +24,11 @@ module Mongoid
         hash = read_attribute(:likes_count)
         hash[klass.name] = count
 
-        set(likes_count: hash)
+        if Mongoid::VERSION.start_with?("3.1")
+          set(:likes_count, hash)
+        else
+          set(likes_count: hash)
+        end
       end
 
       def liked_by?(liker)

@@ -24,7 +24,11 @@ module Mongoid
         hash = read_attribute(:mentions_count)
         hash[klass.name] = count
 
-        set mentions_count: hash
+        if Mongoid::VERSION.start_with?("3.1")
+          set(:mentions_count, hash)
+        else
+          set(mentions_count: hash)
+        end
       end
 
       def mentioned_by?(mentioner)
