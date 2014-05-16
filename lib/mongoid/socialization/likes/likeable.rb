@@ -4,9 +4,11 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        field :likes_count, type: Hash, default: {}
+        field                   :likes_count, type: Hash, default: {}
 
-        after_destroy { Socialization.like_klass.remove_likers(self) }
+        after_destroy           { like_klass.remove_likers(self) }
+        define_model_callbacks  :like, :unlike
+        observable              :like, :unlike
       end
 
       def likes_count(klass=nil)
@@ -21,21 +23,20 @@ module Mongoid
         hash = read_attribute(:likes_count)
         hash[klass.name] = count
 
-        update_attribute :likes_count, hash
+        set(likes_count: hash)
       end
 
       def liked_by?(liker)
-        Socialization.like_klass.liked?(liker, self)
+        like_klass.liked?(liker, self)
       end
 
       def likers(klass)
-        Socialization.like_klass.likers(self, klass)
+        like_klass.likers(self, klass)
       end
 
       def liker_ids(klass)
         likers(klass).pluck("_id")
       end
-
     end
   end
 end

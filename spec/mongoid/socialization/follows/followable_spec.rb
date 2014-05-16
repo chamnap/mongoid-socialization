@@ -61,5 +61,38 @@ module Mongoid::Socialization
         expect(user1.persisted?).to be_true
       end
     end
+
+    context "#update_followers_count!" do
+      it "updates followers_count per klass" do
+        page.update_followers_count!(User, 1)
+        page.update_followers_count!(Admin, 1)
+
+        page.reload
+        expect(page.followers_count).to eq(2)
+        expect(page.followers_count(User)).to eq(1)
+        expect(page.followers_count(Admin)).to eq(1)
+      end
+    end
+
+    context "callbacks" do
+      it "invokes #after_follow callbacks" do
+        expect(page.after_follow_called).to be_false
+
+        user1.follow!(page)
+
+        expect(page.after_follow_called).to be_true
+      end
+
+      it "invokes #after_unfollow callbacks" do
+        user1.follow!(page)
+
+        expect(page.after_follow_called).to be_true
+        expect(page.after_unfollow_called).to be_false
+
+        user1.unfollow!(page)
+
+        expect(page.after_unfollow_called).to be_true
+      end
+    end
   end
 end

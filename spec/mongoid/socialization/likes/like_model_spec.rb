@@ -68,12 +68,15 @@ module Mongoid::Socialization
       it "decrements #likes_count" do
         like_klass.like!(user1, product1)
         like_klass.like!(user2, product1)
+        product1.reload
         expect(product1.likes_count(User)).to eq(2)
 
         like_klass.unlike!(user2, product1)
+        product1.reload
         expect(product1.likes_count(User)).to eq(1)
 
         like_klass.unlike!(user1, product1)
+        product1.reload
         expect(product1.likes_count(User)).to eq(0)
       end
 

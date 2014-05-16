@@ -95,19 +95,17 @@ module Mongoid
           where(likeable_type: likeable.class.name, likeable_id: likeable.id).delete_all
         end
 
-        private
+        def like_for(liker, likeable)
+          liked_by(liker).liking(likeable)
+        end
 
-          def like_for(liker, likeable)
-            liked_by(liker).liking(likeable)
-          end
+        def validate_liker!(liker)
+          raise Socialization::ArgumentError, "#{liker} is not liker!"        unless liker.respond_to?(:liker?) && liker.liker?
+        end
 
-          def validate_liker!(liker)
-            raise Socialization::ArgumentError, "#{liker} is not liker!"        unless liker.respond_to?(:liker?) && liker.liker?
-          end
-
-          def validate_likeable!(likeable)
-            raise Socialization::ArgumentError, "#{likeable} is not likeable!"  unless likeable.respond_to?(:likeable?) && likeable.likeable?
-          end
+        def validate_likeable!(likeable)
+          raise Socialization::ArgumentError, "#{likeable} is not likeable!"  unless likeable.respond_to?(:likeable?) && likeable.likeable?
+        end
       end
     end
   end

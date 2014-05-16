@@ -25,15 +25,17 @@ require "mongoid-rspec"
 # mongoid connection
 Mongoid.load! File.dirname(__FILE__) + "/config/mongoid.yml", :test
 
-# silent deprecation warnings
-I18n.enforce_available_locales = false
-
 # Autoload every model for the test suite that sits in spec/app/models.
 Dir[ File.join(MODELS, "*.rb") ].sort.each do |file|
   name = File.basename(file, ".rb")
   autoload name.camelize.to_sym, name
 end
-Mongoid::Socialization.conversationer_klass_name = "User"
+
+# silent deprecation warnings
+I18n.enforce_available_locales = false
+
+# initializers
+load File.dirname(__FILE__) + "/config/initializers/setup.rb"
 
 RSpec.configure do |config|
   config.filter_run focus: true

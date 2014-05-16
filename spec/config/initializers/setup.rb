@@ -1,0 +1,1 @@
+Mongoid::Socialization.conversationer_klass_name = "User"

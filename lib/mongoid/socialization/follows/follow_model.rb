@@ -97,19 +97,17 @@ module Mongoid
           where(followable_type: followable.class.name, followable_id: followable.id).delete_all
         end
 
-        private
+        def follow_for(follower, followable)
+          followed_by(follower).following(followable)
+        end
 
-          def follow_for(follower, followable)
-            followed_by(follower).following(followable)
-          end
+        def validate_follower!(follower)
+          raise Socialization::ArgumentError, "#{follower} is not follower!"      unless follower.respond_to?(:follower?) && follower.follower?
+        end
 
-          def validate_follower!(follower)
-            raise Socialization::ArgumentError, "#{follower} is not follower!"      unless follower.respond_to?(:follower?) && follower.follower?
-          end
-
-          def validate_followable!(followable)
-            raise Socialization::ArgumentError, "#{followable} is not followable!"  unless followable.respond_to?(:followable?) && followable.followable?
-          end
+        def validate_followable!(followable)
+          raise Socialization::ArgumentError, "#{followable} is not followable!"  unless followable.respond_to?(:followable?) && followable.followable?
+        end
       end
     end
   end

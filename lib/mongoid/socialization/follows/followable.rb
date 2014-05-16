@@ -4,9 +4,11 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        field :followers_count, type: Hash,  default: {}
+        field                   :followers_count, type: Hash,  default: {}
 
-        after_destroy { Mongoid::Socialization.follow_klass.remove_followers(self) }
+        after_destroy           { follow_klass.remove_followers(self) }
+        define_model_callbacks  :follow, :unfollow
+        observable              :follow, :unfollow
       end
 
       def followers_count(klass=nil)
@@ -21,15 +23,15 @@ module Mongoid
         hash = read_attribute(:followers_count)
         hash[klass.name] = count
 
-        update_attribute :followers_count, hash
+        set(followers_count: hash)
       end
 
       def followed_by?(follower)
-        Socialization.follow_klass.followed?(follower, self)
+        follow_klass.followed?(follower, self)
       end
 
       def followers(klass)
-        Socialization.follow_klass.followers(self, klass)
+        follow_klass.followers(self, klass)
       end
 
       def follower_ids(klass)

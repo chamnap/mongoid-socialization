@@ -110,5 +110,17 @@ module Mongoid::Socialization
         expect(page1.persisted?).to be_true
       end
     end
+
+    context "#update_followings_count!" do
+      it "updates followings_count per klass" do
+        user1.update_followings_count!(Page, 1)
+        user1.update_followings_count!(Product, 1)
+
+        user1.reload
+        expect(user1.followings_count).to eq(2)
+        expect(user1.followings_count(Page)).to eq(1)
+        expect(user1.followings_count(Product)).to eq(1)
+      end
+    end
   end
 end

@@ -2,21 +2,30 @@ module Mongoid
   module Socialization
 
     class << self
+      attr_accessor :conversationer_klass_name
 
-      def like_klass=(klass)
-        @like_klass = klass
+      def like_klass_name=(klass_name)
+        @like_klass_name = klass_name
+      end
+
+      def like_klass_name
+        @like_klass_name.presence || "Mongoid::Socialization::Like"
       end
 
       def like_klass
-        @like_klass.presence || Like
+        @like_klass ||= like_klass_name.constantize
       end
 
-      def follow_klass=(klass)
-        @follow_klass = klass
+      def follow_klass_name=(klass_name)
+        @follow_klass_name = klass_name
+      end
+
+      def follow_klass_name
+        @follow_klass_name.presence || "Mongoid::Socialization::Follow"
       end
 
       def follow_klass
-        @follow_klass.presence || Follow
+        @follow_klass ||= follow_klass_name.constantize
       end
 
       def wish_list_klass=(klass)
@@ -43,12 +52,8 @@ module Mongoid
         Message
       end
 
-      def conversationer_klass_name=(klass_name)
-        @conversationer_klass_name = klass_name
-      end
-
       def conversationer_klass
-        @conversationer_klass_name.constantize
+        @conversationer_klass ||= @conversationer_klass_name.constantize
       end
 
       def boolean_klass

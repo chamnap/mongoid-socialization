@@ -56,5 +56,38 @@ module Mongoid::Socialization
         expect(user.persisted?).to be_true
       end
     end
+
+    context "#update_likes_count!" do
+      it "updates likes_count per klass" do
+        product.update_likes_count!(User, 1)
+        product.update_likes_count!(Admin, 1)
+
+        product.reload
+        expect(product.likes_count).to eq(2)
+        expect(product.likes_count(User)).to eq(1)
+        expect(product.likes_count(Admin)).to eq(1)
+      end
+    end
+
+    context "callbacks" do
+      it "invokes #after_like callbacks" do
+        expect(product.after_like_called).to be_false
+
+        user.like!(product)
+
+        expect(product.after_like_called).to be_true
+      end
+
+      it "invokes #after_unlike callbacks" do
+        user.like!(product)
+
+        expect(product.after_like_called).to be_true
+        expect(product.after_unlike_called).to be_false
+
+        user.unlike!(product)
+
+        expect(product.after_unlike_called).to be_true
+      end
+    end
   end
 end
