@@ -42,13 +42,13 @@ module Mongoid::Socialization
       it "raises exception when the actor is not follower" do
         expect {
           follow_klass.follow!(:foo, page1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the victim is not followable" do
         expect {
           follow_klass.follow!(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -92,13 +92,13 @@ module Mongoid::Socialization
       it "raises exception when the actor is not follower" do
         expect {
           follow_klass.unfollow!(:foo, page1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the victim is not followable" do
         expect {
           follow_klass.unfollow!(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -136,7 +136,7 @@ module Mongoid::Socialization
       it "raises exception when it is not followable" do
         expect {
           follow_klass.followed?(:foo, page1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -156,13 +156,13 @@ module Mongoid::Socialization
       it "raises exception when the klass is not followable" do
         expect {
           follow_klass.followables(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the follower is not follower" do
         expect {
           follow_klass.followables(:foo, Page)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -185,13 +185,13 @@ module Mongoid::Socialization
       it "raises exception when the klass is not followable" do
         expect {
           follow_klass.followers(page1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the followable is not followable" do
         expect {
           follow_klass.followers(:foo, User)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
   end

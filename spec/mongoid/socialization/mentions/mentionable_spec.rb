@@ -18,7 +18,7 @@ module Mongoid::Socialization
       it "raises exception when the Mention is not mentioner" do
         expect {
           user.mentioned_by?(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 

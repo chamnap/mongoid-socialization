@@ -17,7 +17,7 @@ module Mongoid::Socialization
       it "raises exception when the Like is not liker" do
         expect {
           product.liked_by?(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 

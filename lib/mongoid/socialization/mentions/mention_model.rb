@@ -100,11 +100,11 @@ module Mongoid
         end
 
         def validate_mentioner!(mentioner)
-          raise Socialization::ArgumentError, "#{mentioner} is not mentioner!"        unless mentioner.respond_to?(:mentioner?) && mentioner.mentioner?
+          raise Socialization::Error.new(mentioner, "is not a mentioner")        unless mentioner.respond_to?(:mentioner?) && mentioner.mentioner?
         end
 
         def validate_mentionable!(mentionable)
-          raise Socialization::ArgumentError, "#{mentionable} is not mentionable!"    unless mentionable.respond_to?(:mentionable?) && mentionable.mentionable?
+          raise Socialization::Error.new(mentionable, "is not a mentionable")    unless mentionable.respond_to?(:mentionable?) && mentionable.mentionable?
         end
       end
     end

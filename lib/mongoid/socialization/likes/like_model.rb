@@ -100,11 +100,11 @@ module Mongoid
         end
 
         def validate_liker!(liker)
-          raise Socialization::ArgumentError, "#{liker} is not liker!"        unless liker.respond_to?(:liker?) && liker.liker?
+          raise Socialization::Error.new(liker, "is not a liker")        unless liker.respond_to?(:liker?) && liker.liker?
         end
 
         def validate_likeable!(likeable)
-          raise Socialization::ArgumentError, "#{likeable} is not likeable!"  unless likeable.respond_to?(:likeable?) && likeable.likeable?
+          raise Socialization::Error.new(likeable, "is not a likeable")  unless likeable.respond_to?(:likeable?) && likeable.likeable?
         end
       end
     end

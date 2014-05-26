@@ -44,13 +44,13 @@ module Mongoid::Socialization
       it "raises exception when the actor is not liker" do
         expect {
           like_klass.like!(:foo, product1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the victim is not likeable" do
         expect {
           like_klass.like!(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -97,13 +97,13 @@ module Mongoid::Socialization
       it "raises exception when the actor is not liker" do
         expect {
           like_klass.unlike!(:foo, product1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the victim is not likeable" do
         expect {
           like_klass.unlike!(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -141,7 +141,7 @@ module Mongoid::Socialization
       it "raises exception when it is not likeable" do
         expect {
           like_klass.liked?(:foo, product1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -161,13 +161,13 @@ module Mongoid::Socialization
       it "raises exception when the klass is not likeable" do
         expect {
           like_klass.likeables(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the liker is not liker" do
         expect {
           like_klass.likeables(:foo, Product)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -190,13 +190,13 @@ module Mongoid::Socialization
       it "raises exception when the klass is not likeable" do
         expect {
           like_klass.likers(product1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the likeable is not likeable" do
         expect {
           like_klass.likers(:foo, User)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
   end

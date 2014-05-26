@@ -102,11 +102,11 @@ module Mongoid
         end
 
         def validate_follower!(follower)
-          raise Socialization::ArgumentError, "#{follower} is not follower!"      unless follower.respond_to?(:follower?) && follower.follower?
+          raise Socialization::Error.new(follower, "is not a follower")      unless follower.respond_to?(:follower?) && follower.follower?
         end
 
         def validate_followable!(followable)
-          raise Socialization::ArgumentError, "#{followable} is not followable!"  unless followable.respond_to?(:followable?) && followable.followable?
+          raise Socialization::Error.new(followable, "is not a followable")  unless followable.respond_to?(:followable?) && followable.followable?
         end
       end
     end

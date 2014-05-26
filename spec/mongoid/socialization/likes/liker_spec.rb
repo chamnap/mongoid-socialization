@@ -16,7 +16,7 @@ module Mongoid::Socialization
       it "raises exception when it is not likeable" do
         expect {
           user.like!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -30,7 +30,7 @@ module Mongoid::Socialization
       it "raises exception when it is not likeable" do
         expect {
           user.unlike!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -44,7 +44,7 @@ module Mongoid::Socialization
       it "raises exception when it is not likeable" do
         expect {
           user.toggle_like!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -58,7 +58,7 @@ module Mongoid::Socialization
       it "raises exception when it is not likeable" do
         expect {
           user.liked?(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -72,7 +72,7 @@ module Mongoid::Socialization
       it "raises exception when it is not likeable" do
         expect {
           user.likeables(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 

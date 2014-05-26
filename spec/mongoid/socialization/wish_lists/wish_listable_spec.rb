@@ -17,7 +17,7 @@ module Mongoid::Socialization
       it "raises exception when the WishListModel is not wish_listr" do
         expect {
           product.wish_listed_by?(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 

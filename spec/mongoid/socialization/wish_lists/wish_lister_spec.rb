@@ -16,7 +16,7 @@ module Mongoid::Socialization
       it "raises exception when it is not wish_listable" do
         expect {
           user.wish_list!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -30,7 +30,7 @@ module Mongoid::Socialization
       it "raises exception when it is not wish_listable" do
         expect {
           user.unwish_list!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -44,7 +44,7 @@ module Mongoid::Socialization
       it "raises exception when it is not wish_listable" do
         expect {
           user.toggle_wish_list!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -58,7 +58,7 @@ module Mongoid::Socialization
       it "raises exception when it is not wish_listable" do
         expect {
           user.wish_listed?(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -72,7 +72,7 @@ module Mongoid::Socialization
       it "raises exception when it is not wish_listable" do
         expect {
           user.wish_listables(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 

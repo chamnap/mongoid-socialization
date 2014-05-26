@@ -46,13 +46,13 @@ module Mongoid::Socialization
       it "raises exception when the actor is not mentioner" do
         expect {
           mention_klass.mention!(:foo, user1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the victim is not mentionable" do
         expect {
           mention_klass.mention!(comment1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -96,13 +96,13 @@ module Mongoid::Socialization
       it "raises exception when the actor is not mentioner" do
         expect {
           mention_klass.unmention!(:foo, user1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the victim is not mentionable" do
         expect {
           mention_klass.unmention!(comment1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -140,7 +140,7 @@ module Mongoid::Socialization
       it "raises exception when it is not mentionable" do
         expect {
           mention_klass.mentioned?(:foo, user1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -160,13 +160,13 @@ module Mongoid::Socialization
       it "raises exception when the klass is not mentionable" do
         expect {
           mention_klass.mentionables(comment1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the mentioner is not mentioner" do
         expect {
           mention_klass.mentionables(:foo, User)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -189,13 +189,13 @@ module Mongoid::Socialization
       it "raises exception when the klass is not mentionable" do
         expect {
           mention_klass.mentioners(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the mentionable is not mentionable" do
         expect {
           mention_klass.mentioners(:foo, Comment)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
   end

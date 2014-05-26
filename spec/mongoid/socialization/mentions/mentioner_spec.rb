@@ -17,7 +17,7 @@ module Mongoid::Socialization
       it "raises exception when it is not mentionable" do
         expect {
           comment.mention!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -31,7 +31,7 @@ module Mongoid::Socialization
       it "raises exception when it is not mentionable" do
         expect {
           comment.unmention!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -45,7 +45,7 @@ module Mongoid::Socialization
       it "raises exception when it is not mentionable" do
         expect {
           comment.toggle_mention!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -59,7 +59,7 @@ module Mongoid::Socialization
       it "raises exception when it is not mentionable" do
         expect {
           comment.mentioned?(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -73,7 +73,7 @@ module Mongoid::Socialization
       it "raises exception when it is not mentionable" do
         expect {
           comment.mentionables(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 

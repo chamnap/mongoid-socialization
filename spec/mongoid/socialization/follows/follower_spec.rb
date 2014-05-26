@@ -20,7 +20,7 @@ module Mongoid::Socialization
       it "raises exception when it is not followable" do
         expect {
           user1.follow!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -34,7 +34,7 @@ module Mongoid::Socialization
       it "raises exception when it is not followable" do
         expect {
           user1.unfollow!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -48,7 +48,7 @@ module Mongoid::Socialization
       it "raises exception when it is not followable" do
         expect {
           user1.toggle_follow!(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -62,7 +62,7 @@ module Mongoid::Socialization
       it "raises exception when it is not followable" do
         expect {
           user1.followed?(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -76,7 +76,7 @@ module Mongoid::Socialization
       it "raises exception when it is not followable" do
         expect {
           user1.followings(:foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 

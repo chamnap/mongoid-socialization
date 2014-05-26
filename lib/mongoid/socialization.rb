@@ -6,7 +6,7 @@ require "mongoid-observers"       unless Mongoid::VERSION.start_with?("3.1")
 module Mongoid
   module Socialization
     autoload :DocumentAdditions,  "mongoid/socialization/document_additions"
-    autoload :ArgumentError,      "mongoid/socialization/argument_error"
+    autoload :Error,              "mongoid/socialization/error"
 
     autoload :Like,               "mongoid/socialization/likes/like"
     autoload :LikeModel,          "mongoid/socialization/likes/like_model"

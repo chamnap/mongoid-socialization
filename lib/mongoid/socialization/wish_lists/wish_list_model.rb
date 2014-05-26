@@ -100,11 +100,11 @@ module Mongoid
         end
 
         def validate_wish_lister!(wish_lister)
-          raise Socialization::ArgumentError, "#{wish_lister} is not wish_lister!"        unless wish_lister.respond_to?(:wish_lister?) && wish_lister.wish_lister?
+          raise Socialization::Error.new(wish_lister, "is not a wish_lister")        unless wish_lister.respond_to?(:wish_lister?) && wish_lister.wish_lister?
         end
 
         def validate_wish_listable!(wish_listable)
-          raise Socialization::ArgumentError, "#{wish_listable} is not wish_listable!"    unless wish_listable.respond_to?(:wish_listable?) && wish_listable.wish_listable?
+          raise Socialization::Error.new(wish_listable, "is not a wish_listable")    unless wish_listable.respond_to?(:wish_listable?) && wish_listable.wish_listable?
         end
       end
     end

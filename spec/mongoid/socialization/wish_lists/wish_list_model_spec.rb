@@ -44,13 +44,13 @@ module Mongoid::Socialization
       it "raises exception when the actor is not wish_lister" do
         expect {
           wish_list_klass.wish_list!(:foo, product1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the victim is not wish_listable" do
         expect {
           wish_list_klass.wish_list!(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -94,13 +94,13 @@ module Mongoid::Socialization
       it "raises exception when the actor is not wish_lister" do
         expect {
           wish_list_klass.unwish_list!(:foo, product1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the victim is not wish_listable" do
         expect {
           wish_list_klass.unwish_list!(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -138,7 +138,7 @@ module Mongoid::Socialization
       it "raises exception when it is not wish_listable" do
         expect {
           wish_list_klass.wish_listed?(:foo, product1)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -158,13 +158,13 @@ module Mongoid::Socialization
       it "raises exception when the klass is not wish_listable" do
         expect {
           wish_list_klass.wish_listables(user1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the wish_lister is not wish_lister" do
         expect {
           wish_list_klass.wish_listables(:foo, Product)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
 
@@ -187,13 +187,13 @@ module Mongoid::Socialization
       it "raises exception when the klass is not wish_listable" do
         expect {
           wish_list_klass.wish_listers(product1, :foo)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
 
       it "raises exception when the wish_listable is not wish_listable" do
         expect {
           wish_list_klass.wish_listers(:foo, User)
-        }.to raise_error(Mongoid::Socialization::ArgumentError)
+        }.to raise_error(Mongoid::Socialization::Error)
       end
     end
   end
