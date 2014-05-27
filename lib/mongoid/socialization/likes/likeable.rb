@@ -5,29 +5,29 @@ module Mongoid
 
       included do
         attr_accessor           :liker, :unliker
-        field                   :likes_count, type: Hash, default: {}
+        field                   :likers_count, type: Hash, default: {}
 
         after_destroy           { like_klass.remove_likers(self) }
         define_model_callbacks  :like, :unlike
         observable              :like, :unlike
       end
 
-      def likes_count(klass=nil)
+      def likers_count(klass=nil)
         if klass.nil?
-          read_attribute(:likes_count).values.sum
+          read_attribute(:likers_count).values.sum
         else
-          read_attribute(:likes_count)[klass.name]
+          read_attribute(:likers_count)[klass.name]
         end
       end
 
-      def update_likes_count!(klass, count)
-        hash = read_attribute(:likes_count)
+      def update_likers_count!(klass, count)
+        hash = read_attribute(:likers_count)
         hash[klass.name] = count
 
         if Mongoid::VERSION.start_with?("3.1")
-          set(:likes_count, hash)
+          set(:likers_count, hash)
         else
-          set(likes_count: hash)
+          set(likers_count: hash)
         end
       end
 

@@ -36,7 +36,8 @@ module Mongoid
           return false if mentioned?(mentioner, mentionable)
 
           create!(mentioner: mentioner, mentionable: mentionable)
-          mentionable.update_mentions_count!(mentioner.class, mentioners(mentionable, mentioner.class).size)
+          mentionable.update_mentioners_count!(mentioner.class, mentioners(mentionable, mentioner.class).size)
+          mentioner.update_mentionables_count!(mentionable.class, mentionables(mentioner, mentionable.class).size)
           true
         end
 
@@ -44,7 +45,8 @@ module Mongoid
           return false unless mentioned?(mentioner, mentionable)
 
           mention_for(mentioner, mentionable).delete_all
-          mentionable.update_mentions_count!(mentioner.class, mentioners(mentionable, mentioner.class).size)
+          mentionable.update_mentioners_count!(mentioner.class, mentioners(mentionable, mentioner.class).size)
+          mentioner.update_mentionables_count!(mentionable.class, mentionables(mentioner, mentionable.class).size)
           true
         end
 

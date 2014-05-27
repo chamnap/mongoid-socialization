@@ -4,7 +4,28 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
+        field           :likeables_count, type: Hash,  default: {}
+
         after_destroy   { like_klass.remove_likeables(self) }
+      end
+
+      def likeables_count(klass=nil)
+        if klass.nil?
+          read_attribute(:likeables_count).values.sum
+        else
+          read_attribute(:likeables_count).fetch(klass.name, 0)
+        end
+      end
+
+      def update_likeables_count!(klass, count)
+        hash = read_attribute(:likeables_count)
+        hash[klass.name] = count
+
+        if Mongoid::VERSION.start_with?("3.1")
+          set(:likeables_count, hash)
+        else
+          set(likeables_count: hash)
+        end
       end
 
       def like!(likeable)

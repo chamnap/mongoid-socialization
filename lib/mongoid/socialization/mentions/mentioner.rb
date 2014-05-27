@@ -4,7 +4,28 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        after_destroy { mention_klass.remove_mentionables(self) }
+        field           :mentionables_count, type: Hash,  default: {}
+
+        after_destroy   { mention_klass.remove_mentionables(self) }
+      end
+
+      def mentionables_count(klass=nil)
+        if klass.nil?
+          read_attribute(:mentionables_count).values.sum
+        else
+          read_attribute(:mentionables_count).fetch(klass.name, 0)
+        end
+      end
+
+      def update_mentionables_count!(klass, count)
+        hash = read_attribute(:mentionables_count)
+        hash[klass.name] = count
+
+        if Mongoid::VERSION.start_with?("3.1")
+          set(:mentionables_count, hash)
+        else
+          set(mentionables_count: hash)
+        end
       end
 
       def mention!(mentionable)

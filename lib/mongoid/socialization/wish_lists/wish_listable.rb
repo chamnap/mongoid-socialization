@@ -5,29 +5,29 @@ module Mongoid
 
       included do
         attr_accessor           :wish_lister, :unwish_lister
-        field                   :wish_lists_count, type: Hash, default: {}
+        field                   :wish_listers_count, type: Hash, default: {}
 
         after_destroy           { wish_list_klass.remove_wish_listers(self) }
         define_model_callbacks  :wish_list, :unwish_list
         observable              :wish_list, :unwish_list
       end
 
-      def wish_lists_count(klass=nil)
+      def wish_listers_count(klass=nil)
         if klass.nil?
-          read_attribute(:wish_lists_count).values.sum
+          read_attribute(:wish_listers_count).values.sum
         else
-          read_attribute(:wish_lists_count)[klass.name]
+          read_attribute(:wish_listers_count)[klass.name]
         end
       end
 
-      def update_wish_lists_count!(klass, count)
-        hash = read_attribute(:wish_lists_count)
+      def update_wish_listers_count!(klass, count)
+        hash = read_attribute(:wish_listers_count)
         hash[klass.name] = count
 
         if Mongoid::VERSION.start_with?("3.1")
-          set(:wish_lists_count, hash)
+          set(:wish_listers_count, hash)
         else
-          set(wish_lists_count: hash)
+          set(wish_listers_count: hash)
         end
       end
 

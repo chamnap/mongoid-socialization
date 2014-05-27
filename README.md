@@ -57,7 +57,7 @@ end
     page.liked_by?(user)
     page.likers(User)
     page.liker_ids(User)
-    page.likes_count(User)
+    page.likers_count(User)
 
 * **Follow**: is a one-way concept, similar to Twitter's follow. For example, Chamnap follows Vorleak. It doesn't mean that Vorleak follows Chamnap. However, Vorleak can follow Chamnap back if he want to.
 
@@ -122,7 +122,7 @@ end
     page.wish_listed_by?(user)
     page.wish_listers(User)
     page.wish_lister_ids(User)
-    page.wish_lists_count(User)
+    page.wish_listers_count(User)
 
 * **Mention**: very similar to Facebook mentions. For example, Chamnap mentions Vorleak in his comment. A "mentioner" is the object containing the mention, not the actor. In this example, mentioner is the comment object, NOT Chamnap.
 
@@ -154,7 +154,7 @@ end
     user.mentioned_by?(comment)
     user.mentioners(Comment)
     user.mentioner_ids(Comment)
-    user.mentions_count(Comment)
+    user.mentioners_count(Comment)
 
 * **Private Message**
 

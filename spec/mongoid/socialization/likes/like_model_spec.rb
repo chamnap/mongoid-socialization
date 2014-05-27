@@ -23,12 +23,12 @@ module Mongoid::Socialization
         expect(like_klass.like!(user1, product1)).to be_false
       end
 
-      it "increments #likes_count" do
+      it "increments #likers_count" do
         like_klass.like!(user1, product1)
-        expect(product1.likes_count(User)).to eq(1)
+        expect(product1.likers_count(User)).to eq(1)
 
         like_klass.like!(user2, product1)
-        expect(product1.likes_count(User)).to eq(2)
+        expect(product1.likers_count(User)).to eq(2)
       end
 
       it "pushs #liker_ids" do
@@ -65,19 +65,19 @@ module Mongoid::Socialization
         expect(like_klass.unlike!(user1, product1)).to be_false
       end
 
-      it "decrements #likes_count" do
+      it "decrements #likers_count" do
         like_klass.like!(user1, product1)
         like_klass.like!(user2, product1)
         product1.reload
-        expect(product1.likes_count(User)).to eq(2)
+        expect(product1.likers_count(User)).to eq(2)
 
         like_klass.unlike!(user2, product1)
         product1.reload
-        expect(product1.likes_count(User)).to eq(1)
+        expect(product1.likers_count(User)).to eq(1)
 
         like_klass.unlike!(user1, product1)
         product1.reload
-        expect(product1.likes_count(User)).to eq(0)
+        expect(product1.likers_count(User)).to eq(0)
       end
 
       it "pulls #liker_ids" do

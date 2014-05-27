@@ -36,7 +36,8 @@ module Mongoid
           return false if liked?(liker, likeable)
 
           create!(liker: liker, likeable: likeable)
-          likeable.update_likes_count!(liker.class, likers(likeable, liker.class).size)
+          likeable.update_likers_count!(liker.class, likers(likeable, liker.class).size)
+          liker.update_likeables_count!(likeable.class, likeables(liker, likeable.class).size)
           true
         end
 
@@ -44,7 +45,8 @@ module Mongoid
           return false unless liked?(liker, likeable)
 
           like_for(liker, likeable).delete_all
-          likeable.update_likes_count!(liker.class, likers(likeable, liker.class).size)
+          likeable.update_likers_count!(liker.class, likers(likeable, liker.class).size)
+          liker.update_likeables_count!(likeable.class, likeables(liker, likeable.class).size)
           true
         end
 

@@ -25,12 +25,12 @@ module Mongoid::Socialization
         expect(mention_klass.mention!(comment1, user1)).to be_false
       end
 
-      it "increments #mentions_count" do
+      it "increments #mentioners_count" do
         mention_klass.mention!(comment1, user1)
-        expect(user1.mentions_count(Comment)).to eq(1)
+        expect(user1.mentioners_count(Comment)).to eq(1)
 
         mention_klass.mention!(comment2, user1)
-        expect(user1.mentions_count(Comment)).to eq(2)
+        expect(user1.mentioners_count(Comment)).to eq(2)
       end
 
       it "pushs #mentioner_ids" do
@@ -67,16 +67,16 @@ module Mongoid::Socialization
         expect(mention_klass.unmention!(comment1, user1)).to be_false
       end
 
-      it "decrements #mentions_count" do
+      it "decrements #mentioners_count" do
         mention_klass.mention!(comment1, user1)
         mention_klass.mention!(comment2, user1)
-        expect(user1.mentions_count(Comment)).to eq(2)
+        expect(user1.mentioners_count(Comment)).to eq(2)
 
         mention_klass.unmention!(comment2, user1)
-        expect(user1.mentions_count(Comment)).to eq(1)
+        expect(user1.mentioners_count(Comment)).to eq(1)
 
         mention_klass.unmention!(comment1, user1)
-        expect(user1.mentions_count(Comment)).to eq(0)
+        expect(user1.mentioners_count(Comment)).to eq(0)
       end
 
       it "pulls #mentioner_ids" do

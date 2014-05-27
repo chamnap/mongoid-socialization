@@ -4,7 +4,28 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        after_destroy { wish_list_klass.remove_wish_listables(self) }
+        field           :wish_listables_count, type: Hash,  default: {}
+
+        after_destroy   { wish_list_klass.remove_wish_listables(self) }
+      end
+
+      def wish_listables_count(klass=nil)
+        if klass.nil?
+          read_attribute(:wish_listables_count).values.sum
+        else
+          read_attribute(:wish_listables_count).fetch(klass.name, 0)
+        end
+      end
+
+      def update_wish_listables_count!(klass, count)
+        hash = read_attribute(:wish_listables_count)
+        hash[klass.name] = count
+
+        if Mongoid::VERSION.start_with?("3.1")
+          set(:wish_listables_count, hash)
+        else
+          set(wish_listables_count: hash)
+        end
       end
 
       def wish_list!(wish_listable)

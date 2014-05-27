@@ -23,12 +23,12 @@ module Mongoid::Socialization
         expect(wish_list_klass.wish_list!(user1, product1)).to be_false
       end
 
-      it "increments #wish_lists_count" do
+      it "increments #wish_listers_count" do
         wish_list_klass.wish_list!(user1, product1)
-        expect(product1.wish_lists_count(User)).to eq(1)
+        expect(product1.wish_listers_count(User)).to eq(1)
 
         wish_list_klass.wish_list!(user2, product1)
-        expect(product1.wish_lists_count(User)).to eq(2)
+        expect(product1.wish_listers_count(User)).to eq(2)
       end
 
       it "pushs #wish_lister_ids" do
@@ -65,16 +65,16 @@ module Mongoid::Socialization
         expect(wish_list_klass.unwish_list!(user1, product1)).to be_false
       end
 
-      it "decrements #wish_lists_count" do
+      it "decrements #wish_listers_count" do
         wish_list_klass.wish_list!(user1, product1)
         wish_list_klass.wish_list!(user2, product1)
-        expect(product1.wish_lists_count(User)).to eq(2)
+        expect(product1.wish_listers_count(User)).to eq(2)
 
         wish_list_klass.unwish_list!(user2, product1)
-        expect(product1.wish_lists_count(User)).to eq(1)
+        expect(product1.wish_listers_count(User)).to eq(1)
 
         wish_list_klass.unwish_list!(user1, product1)
-        expect(product1.wish_lists_count(User)).to eq(0)
+        expect(product1.wish_listers_count(User)).to eq(0)
       end
 
       it "pulls #wish_lister_ids" do

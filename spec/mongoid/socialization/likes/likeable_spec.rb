@@ -29,20 +29,20 @@ module Mongoid::Socialization
       end
     end
 
-    context "#likes_count" do
-      it "returns total likes_count for all klasses" do
+    context "#likers_count" do
+      it "returns total likers_count for all klasses" do
         user.like!(product)
         admin.like!(product)
 
-        expect(product.likes_count).to eq(2)
+        expect(product.likers_count).to eq(2)
       end
 
-      it "returns total likes_count for a specific klass" do
+      it "returns total likers_count for a specific klass" do
         user.like!(product)
         admin.like!(product)
 
-        expect(product.likes_count(User)).to eq(1)
-        expect(product.likes_count(Admin)).to eq(1)
+        expect(product.likers_count(User)).to eq(1)
+        expect(product.likers_count(Admin)).to eq(1)
       end
     end
 
@@ -57,15 +57,15 @@ module Mongoid::Socialization
       end
     end
 
-    context "#update_likes_count!" do
-      it "updates likes_count per klass" do
-        product.update_likes_count!(User, 1)
-        product.update_likes_count!(Admin, 1)
+    context "#update_likers_count!" do
+      it "updates likers_count per klass" do
+        product.update_likers_count!(User, 1)
+        product.update_likers_count!(Admin, 1)
 
         product.reload
-        expect(product.likes_count).to eq(2)
-        expect(product.likes_count(User)).to eq(1)
-        expect(product.likes_count(Admin)).to eq(1)
+        expect(product.likers_count).to eq(2)
+        expect(product.likers_count(User)).to eq(1)
+        expect(product.likers_count(Admin)).to eq(1)
       end
     end
 

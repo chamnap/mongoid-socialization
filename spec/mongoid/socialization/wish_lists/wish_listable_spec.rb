@@ -29,20 +29,20 @@ module Mongoid::Socialization
       end
     end
 
-    context "#wish_lists_count" do
-      it "returns total wish_lists_count for all klasses" do
+    context "#wish_listers_count" do
+      it "returns total wish_listers_count for all klasses" do
         user.wish_list!(product)
         admin.wish_list!(product)
 
-        expect(product.wish_lists_count).to eq(2)
+        expect(product.wish_listers_count).to eq(2)
       end
 
-      it "returns total wish_lists_count for a specific klass" do
+      it "returns total wish_listers_count for a specific klass" do
         user.wish_list!(product)
         admin.wish_list!(product)
 
-        expect(product.wish_lists_count(User)).to eq(1)
-        expect(product.wish_lists_count(Admin)).to eq(1)
+        expect(product.wish_listers_count(User)).to eq(1)
+        expect(product.wish_listers_count(Admin)).to eq(1)
       end
     end
 
@@ -57,15 +57,15 @@ module Mongoid::Socialization
       end
     end
 
-    context "#update_wish_lists_count!" do
-      it "updates wish_lists_count per klass" do
-        product.update_wish_lists_count!(User, 1)
-        product.update_wish_lists_count!(Admin, 1)
+    context "#update_wish_listers_count!" do
+      it "updates wish_listers_count per klass" do
+        product.update_wish_listers_count!(User, 1)
+        product.update_wish_listers_count!(Admin, 1)
 
         product.reload
-        expect(product.wish_lists_count).to eq(2)
-        expect(product.wish_lists_count(User)).to eq(1)
-        expect(product.wish_lists_count(Admin)).to eq(1)
+        expect(product.wish_listers_count).to eq(2)
+        expect(product.wish_listers_count(User)).to eq(1)
+        expect(product.wish_listers_count(Admin)).to eq(1)
       end
     end
 

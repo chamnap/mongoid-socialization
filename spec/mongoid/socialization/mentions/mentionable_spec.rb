@@ -30,21 +30,21 @@ module Mongoid::Socialization
       end
     end
 
-    context "#mentions_count" do
-      it "returns total mentions_count for all klasses" do
+    context "#mentioners_count" do
+      it "returns total mentioners_count for all klasses" do
         comment.mention!(user)
         comment.mention!(admin)
 
-        expect(user.mentions_count).to eq(1)
-        expect(admin.mentions_count).to eq(1)
+        expect(user.mentioners_count).to eq(1)
+        expect(admin.mentioners_count).to eq(1)
       end
 
-      it "returns total mentions_count for a specific klass" do
+      it "returns total mentioners_count for a specific klass" do
         comment.mention!(user)
         comment.mention!(admin)
 
-        expect(user.mentions_count(Comment)).to eq(1)
-        expect(admin.mentions_count(Comment)).to eq(1)
+        expect(user.mentioners_count(Comment)).to eq(1)
+        expect(admin.mentioners_count(Comment)).to eq(1)
       end
     end
 
@@ -59,13 +59,13 @@ module Mongoid::Socialization
       end
     end
 
-    context "#update_mentions_count!" do
-      it "updates mentions_count per klass" do
-        user.update_mentions_count!(Comment, 1)
+    context "#update_mentioners_count!" do
+      it "updates mentioners_count per klass" do
+        user.update_mentioners_count!(Comment, 1)
 
         user.reload
-        expect(user.mentions_count).to eq(1)
-        expect(user.mentions_count(Comment)).to eq(1)
+        expect(user.mentioners_count).to eq(1)
+        expect(user.mentioners_count(Comment)).to eq(1)
       end
     end
 

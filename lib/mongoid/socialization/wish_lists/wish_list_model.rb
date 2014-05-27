@@ -36,7 +36,8 @@ module Mongoid
           return false if wish_listed?(wish_lister, wish_listable)
 
           create!(wish_lister: wish_lister, wish_listable: wish_listable)
-          wish_listable.update_wish_lists_count!(wish_lister.class, wish_listers(wish_listable, wish_lister.class).size)
+          wish_listable.update_wish_listers_count!(wish_lister.class, wish_listers(wish_listable, wish_lister.class).size)
+          wish_lister.update_wish_listables_count!(wish_listable.class, wish_listables(wish_lister, wish_listable.class).size)
           true
         end
 
@@ -44,7 +45,8 @@ module Mongoid
           return false unless wish_listed?(wish_lister, wish_listable)
 
           wish_list_for(wish_lister, wish_listable).delete_all
-          wish_listable.update_wish_lists_count!(wish_lister.class, wish_listers(wish_listable, wish_lister.class).size)
+          wish_listable.update_wish_listers_count!(wish_lister.class, wish_listers(wish_listable, wish_lister.class).size)
+          wish_lister.update_wish_listables_count!(wish_listable.class, wish_listables(wish_lister, wish_listable.class).size)
           true
         end
 

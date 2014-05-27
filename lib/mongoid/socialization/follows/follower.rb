@@ -13,7 +13,7 @@ module Mongoid
         if klass.nil?
           read_attribute(:followings_count).values.sum
         else
-          read_attribute(:followings_count)[klass.name]
+          read_attribute(:followings_count).fetch(klass.name, 0)
         end
       end
 

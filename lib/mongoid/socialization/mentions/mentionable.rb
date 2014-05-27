@@ -5,29 +5,29 @@ module Mongoid
 
       included do
         attr_accessor           :mentioner, :unmentioner
-        field                   :mentions_count, type: Hash, default: {}
+        field                   :mentioners_count, type: Hash, default: {}
 
         after_destroy           { mention_klass.remove_mentioners(self) }
         define_model_callbacks  :mention, :unmention
         observable              :mention, :unmention
       end
 
-      def mentions_count(klass=nil)
+      def mentioners_count(klass=nil)
         if klass.nil?
-          read_attribute(:mentions_count).values.sum
+          read_attribute(:mentioners_count).values.sum
         else
-          read_attribute(:mentions_count)[klass.name]
+          read_attribute(:mentioners_count)[klass.name]
         end
       end
 
-      def update_mentions_count!(klass, count)
-        hash = read_attribute(:mentions_count)
+      def update_mentioners_count!(klass, count)
+        hash = read_attribute(:mentioners_count)
         hash[klass.name] = count
 
         if Mongoid::VERSION.start_with?("3.1")
-          set(:mentions_count, hash)
+          set(:mentioners_count, hash)
         else
-          set(mentions_count: hash)
+          set(mentioners_count: hash)
         end
       end
 
