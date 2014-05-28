@@ -29,7 +29,9 @@ module Mongoid
     autoload :Mentioner,          "mongoid/socialization/mentions/mentioner"
 
     autoload :Conversation,       "mongoid/socialization/conversations/conversation"
+    autoload :ConversationModel,  "mongoid/socialization/conversations/conversation_model"
     autoload :Message,            "mongoid/socialization/conversations/message"
+    autoload :MessageModel,       "mongoid/socialization/conversations/message_model"
     autoload :Conversationable,   "mongoid/socialization/conversations/conversationable"
   end
 end

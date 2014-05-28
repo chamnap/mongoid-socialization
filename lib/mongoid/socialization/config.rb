@@ -3,7 +3,7 @@ module Mongoid
     extend self
     attr_accessor :conversationer_klass_name
 
-    MODULES = %w( like follow wish_list mention )
+    MODULES = %w( like follow wish_list mention conversation message )
 
     MODULES.each do |module_name|
       module_klass_name = "#{module_name}_klass_name"
@@ -26,14 +26,6 @@ module Mongoid
           instance_variable_set("@#{module_name}_klass", send("#{module_klass_name}").constantize)
         end
       end
-    end
-
-    def conversation_klass
-      Conversation
-    end
-
-    def message_klass
-      Message
     end
 
     def conversationer_klass
