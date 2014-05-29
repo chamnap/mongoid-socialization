@@ -4,8 +4,6 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        include Mongoid::Document
-        include Mongoid::Timestamps
 
         # Indexes
         index({ wish_listable_id: 1, wish_listable_type: 1 }, { background: true })

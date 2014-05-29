@@ -4,8 +4,6 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        include Mongoid::Document
-        include Mongoid::Timestamps
 
         ## Indexes
         index({ participant_ids: 1 }, { background: true })

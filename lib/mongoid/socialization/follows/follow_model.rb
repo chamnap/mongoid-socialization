@@ -4,8 +4,6 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        include Mongoid::Document
-        include Mongoid::Timestamps
 
         # Indexes
         index({ followable_id: 1, followable_type: 1 }, { background: true })

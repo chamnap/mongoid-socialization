@@ -4,8 +4,6 @@ module Mongoid
       extend ActiveSupport::Concern
 
       included do
-        include Mongoid::Document
-        include Mongoid::Timestamps
 
         # Fields
         field       :is_seen,         type: Mongoid::Socialization.boolean_klass, default: false
