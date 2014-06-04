@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "mongoid",           ">= 4.0.0.beta1"
+gem "mongoid",           ">= 4.0.0.beta2"
 gem "mongoid-observers", "~> 0.1.1"
 gem "rake",              "~> 10.3.1"
 gem "bundler",           "~> 1.6.1"
