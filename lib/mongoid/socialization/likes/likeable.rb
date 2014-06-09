@@ -16,7 +16,7 @@ module Mongoid
         if klass.nil?
           read_attribute(:likers_count).values.sum
         else
-          read_attribute(:likers_count)[klass.name]
+          read_attribute(:likers_count).fetch(klass.name, 0)
         end
       end
 

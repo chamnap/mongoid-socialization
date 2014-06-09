@@ -16,7 +16,7 @@ module Mongoid
         if klass.nil?
           read_attribute(:wish_listers_count).values.sum
         else
-          read_attribute(:wish_listers_count)[klass.name]
+          read_attribute(:wish_listers_count).fetch(klass.name, 0)
         end
       end
 
