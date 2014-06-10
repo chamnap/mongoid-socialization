@@ -37,6 +37,14 @@ module Mongoid
         end
       end
 
+      def mention(mentionable)
+        mention!(mentionable)
+      rescue
+        false
+      else
+        true
+      end
+
       def unmention!(mentionable)
         mention_klass.validate_mentionable!(mentionable)
 
@@ -46,12 +54,30 @@ module Mongoid
         end
       end
 
+      def unmention(mentionable)
+        unmention!(mentionable)
+      rescue
+        false
+      else
+        true
+      end
+
       def toggle_mention!(mentionable)
         mention_klass.toggle_mention!(self, mentionable)
       end
 
+      def toggle_mention(mentionable)
+        toggle_mention!(mentionable)
+      rescue
+        false
+      else
+        true
+      end
+
       def mentioned?(mentionable)
         mention_klass.mentioned?(self, mentionable)
+      rescue
+        false
       end
 
       def mentionables(klass)

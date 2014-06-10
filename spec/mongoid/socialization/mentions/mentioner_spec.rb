@@ -57,10 +57,8 @@ module Mongoid::Socialization
         comment.mentioned?(user1)
       end
 
-      it "raises exception when it is not mentionable" do
-        expect {
-          comment.mentioned?(:foo)
-        }.to raise_error(Mongoid::Socialization::Error)
+      it "returns false when it is not mentionable" do
+        expect(comment.mentioned?(:foo)).to be_false
       end
     end
 

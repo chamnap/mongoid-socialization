@@ -37,6 +37,14 @@ module Mongoid
         end
       end
 
+      def follow(followable)
+        follow!(followable)
+      rescue
+        false
+      else
+        true
+      end
+
       def unfollow!(followable)
         follow_klass.validate_followable!(followable)
 
@@ -46,12 +54,30 @@ module Mongoid
         end
       end
 
+      def unfollow(followable)
+        unfollow!(followable)
+      rescue
+        false
+      else
+        true
+      end
+
       def toggle_follow!(followable)
         follow_klass.toggle_follow!(self, followable)
       end
 
+      def toggle_follow(followable)
+        toggle_follow!(followable)
+      rescue
+        false
+      else
+        true
+      end
+
       def followed?(followable)
         follow_klass.followed?(self, followable)
+      rescue
+        false
       end
 
       def followings(klass)

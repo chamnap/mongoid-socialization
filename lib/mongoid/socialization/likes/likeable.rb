@@ -33,6 +33,8 @@ module Mongoid
 
       def liked_by?(liker)
         like_klass.liked?(liker, self)
+      rescue
+        false
       end
 
       def likers(klass)

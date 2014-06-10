@@ -33,6 +33,8 @@ module Mongoid
 
       def mentioned_by?(mentioner)
         mention_klass.mentioned?(mentioner, self)
+      rescue
+        false
       end
 
       def mentioners(klass)

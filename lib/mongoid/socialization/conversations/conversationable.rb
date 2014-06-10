@@ -24,6 +24,14 @@ module Mongoid
 
         conversation.create_message!(text, self)
       end
+
+      def send_message(text, another_participant)
+        send_message!(text, another_participant)
+      rescue
+        false
+      else
+        true
+      end
     end
   end
 end

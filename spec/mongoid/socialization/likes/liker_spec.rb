@@ -58,10 +58,8 @@ module Mongoid::Socialization
         user.liked?(product1)
       end
 
-      it "raises exception when it is not likeable" do
-        expect {
-          user.liked?(:foo)
-        }.to raise_error(Mongoid::Socialization::Error)
+      it "returns false when it is not likeable" do
+        expect(user.liked?(:foo)).to be_false
       end
     end
 

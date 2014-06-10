@@ -59,10 +59,8 @@ module Mongoid::Socialization
         user1.followed?(user2)
       end
 
-      it "raises exception when it is not followable" do
-        expect {
-          user1.followed?(:foo)
-        }.to raise_error(Mongoid::Socialization::Error)
+      it "returns false when it is not followable" do
+        expect(user1.followed?(:foo)).to be_false
       end
     end
 

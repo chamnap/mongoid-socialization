@@ -37,6 +37,14 @@ module Mongoid
         end
       end
 
+      def like(likeable)
+        like!(likeable)
+      rescue
+        false
+      else
+        true
+      end
+
       def unlike!(likeable)
         like_klass.validate_likeable!(likeable)
 
@@ -46,12 +54,30 @@ module Mongoid
         end
       end
 
+      def unlike(likeable)
+        unlike!(likeable)
+      rescue
+        false
+      else
+        true
+      end
+
       def toggle_like!(likeable)
         like_klass.toggle_like!(self, likeable)
       end
 
+      def toggle_like(likeable)
+        toggle_like!(likeable)
+      rescue
+        false
+      else
+        true
+      end
+
       def liked?(likeable)
         like_klass.liked?(self, likeable)
+      rescue
+        false
       end
 
       def likeables(klass)

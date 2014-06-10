@@ -33,6 +33,8 @@ module Mongoid
 
       def followed_by?(follower)
         follow_klass.followed?(follower, self)
+      rescue
+        false
       end
 
       def followers(klass)

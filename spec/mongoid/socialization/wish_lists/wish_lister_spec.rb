@@ -58,10 +58,8 @@ module Mongoid::Socialization
         user.wish_listed?(product1)
       end
 
-      it "raises exception when it is not wish_listable" do
-        expect {
-          user.wish_listed?(:foo)
-        }.to raise_error(Mongoid::Socialization::Error)
+      it "returns false when it is not wish_listable" do
+        expect(user.wish_listed?(:foo)).to be_false
       end
     end
 

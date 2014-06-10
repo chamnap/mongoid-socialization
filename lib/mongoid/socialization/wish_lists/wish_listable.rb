@@ -33,6 +33,8 @@ module Mongoid
 
       def wish_listed_by?(wish_lister)
         wish_list_klass.wish_listed?(wish_lister, self)
+      rescue
+        false
       end
 
       def wish_listers(klass)

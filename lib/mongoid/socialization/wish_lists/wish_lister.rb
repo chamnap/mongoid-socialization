@@ -37,6 +37,14 @@ module Mongoid
         end
       end
 
+      def wish_list(wish_listable)
+        wish_list!(wish_listable)
+      rescue
+        false
+      else
+        true
+      end
+
       def unwish_list!(wish_listable)
         wish_list_klass.validate_wish_listable!(wish_listable)
 
@@ -46,12 +54,30 @@ module Mongoid
         end
       end
 
+      def unwish_list(wish_listable)
+        unwish_list!(wish_listable)
+      rescue
+        false
+      else
+        true
+      end
+
       def toggle_wish_list!(wish_listable)
         wish_list_klass.toggle_wish_list!(self, wish_listable)
       end
 
+      def toggle_wish_list(wish_listable)
+        toggle_wish_list!(wish_listable)
+      rescue
+        false
+      else
+        true
+      end
+
       def wish_listed?(wish_listable)
         wish_list_klass.wish_listed?(self, wish_listable)
+      rescue
+        false
       end
 
       def wish_listables(klass)
