@@ -57,9 +57,9 @@ describe User, "#send_message!" do
       user3.send_message!("What time do you work?", user1)
     end
 
-    let(:conversation1_2) { user1.conversation_with(user2) }
-    let(:conversation1_3) { user1.conversation_with(user3) }
-    let(:conversation2_3) { user2.conversation_with(user3) }
+    let(:conversation1_2) { user1.find_conversation_with(user2) }
+    let(:conversation1_3) { user1.find_conversation_with(user3) }
+    let(:conversation2_3) { user2.find_conversation_with(user3) }
 
     it "conversation1_2 has 3 messages" do
       expect(conversation1_2.messages.count).to eq(3)

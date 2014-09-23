@@ -15,7 +15,7 @@ module Mongoid
         ## Validations
         validate                :validate_participants
 
-        def sender
+        def last_sender
           messages.last.try(:sender)
         end
 

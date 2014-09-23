@@ -44,10 +44,10 @@ module Mongoid::Socialization
         expect(result).to eq(conversation)
       end
 
-      it "#sender" do
+      it "#last_sender" do
         conversation.create_message!("Hello", user2)
 
-        expect(conversation.sender).to eq(user2)
+        expect(conversation.last_sender).to eq(user2)
       end
     end
   end

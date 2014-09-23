@@ -15,8 +15,13 @@ module Mongoid
         conversation
       end
 
-      def conversation_with(another_participant)
-        Mongoid::Socialization.conversation_klass.find_with_participant_ids(id, another_participant.id).first
+      def find_conversation_with(another_participant)
+        conversation_selector_with(another_participant).first
+      end
+
+      def find_or_initialize_conversation_with(another_participant)
+        conversation = conversation_selector_with(another_participant)
+        conversation.first || conversation.new
       end
 
       def send_message!(text, another_participant)
@@ -32,6 +37,12 @@ module Mongoid
       else
         true
       end
+
+      private
+
+        def conversation_selector_with(another_participant)
+          Mongoid::Socialization.conversation_klass.find_with_participant_ids(id, another_participant.id)
+        end
     end
   end
 end
