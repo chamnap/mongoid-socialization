@@ -23,11 +23,8 @@ module Mongoid
           messages.last
         end
 
-        def receivers
-          message = messages.last
-          return [] if message.nil?
-
-          message.participant_ids - message.sender.id
+        def receiver(sender)
+          Mongoid::Socialization.conversationer_klass.find(participant_ids - [sender.id]).first
         end
 
         def create_message!(text, sender)
@@ -48,8 +45,13 @@ module Mongoid
           find_and_modify({ "$set" => { updated_at: Time.now.utc }}, { upsert: true, new: true })
         end
 
+        def find_or_initialize_with_participant_ids(*participant_ids)
+          conversation = find_with_participant_ids(participant_ids.flatten)
+          conversation.first || conversation.new
+        end
+
         def find_with_participant_ids(*participant_ids)
-          where(participant_ids: participant_ids.sort)
+          where(participant_ids: participant_ids.flatten.sort)
         end
 
       end
