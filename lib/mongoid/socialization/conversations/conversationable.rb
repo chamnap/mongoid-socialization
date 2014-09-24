@@ -20,8 +20,7 @@ module Mongoid
       end
 
       def find_or_initialize_conversation_with(another_participant)
-        conversation = conversation_selector_with(another_participant)
-        conversation.first || conversation.new
+        conversation_selector_with(another_participant).first_or_initialize
       end
 
       def send_message!(text, another_participant)

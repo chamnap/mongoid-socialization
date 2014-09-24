@@ -23,7 +23,7 @@ module Mongoid
           messages.last
         end
 
-        def receiver(sender)
+        def recipient(sender)
           Mongoid::Socialization.conversationer_klass.find(participant_ids - [sender.id]).first
         end
 
