@@ -9,12 +9,6 @@ module Mongoid
         index({ likeable_id: 1, likeable_type: 1 }, { background: true })
         index({ liker_id: 1, liker_type: 1 }, { background: true })
 
-        # Fields
-        field       :liker_type,    type: String
-        field       :liker_id,      type: Integer
-        field       :likeable_type, type: String
-        field       :likeable_id,   type: Integer
-
         # Relations
         belongs_to  :liker,         polymorphic: true
         belongs_to  :likeable,      polymorphic: true

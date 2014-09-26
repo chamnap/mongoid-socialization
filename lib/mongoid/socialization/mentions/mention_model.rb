@@ -9,12 +9,6 @@ module Mongoid
         index({ mentionable_id: 1, mentionable_type: 1 }, { background: true })
         index({ mentioner_id: 1, mentioner_type: 1 },     { background: true })
 
-        # Fields
-        field       :mentioner_type,    type: String
-        field       :mentioner_id,      type: Integer
-        field       :mentionable_type,  type: String
-        field       :mentionable_id,    type: Integer
-
         # Relations
         belongs_to  :mentioner,         polymorphic: true
         belongs_to  :mentionable,       polymorphic: true

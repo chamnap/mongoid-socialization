@@ -9,12 +9,6 @@ module Mongoid
         index({ wish_listable_id: 1, wish_listable_type: 1 }, { background: true })
         index({ wish_lister_id: 1, wish_lister_type: 1 }, { background: true })
 
-        # Fields
-        field       :wish_lister_type,    type: String
-        field       :wish_lister_id,      type: Integer
-        field       :wish_listable_type,  type: String
-        field       :wish_listable_id,    type: Integer
-
         # Relations
         belongs_to  :wish_lister,         polymorphic: true
         belongs_to  :wish_listable,       polymorphic: true

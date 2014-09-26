@@ -9,12 +9,6 @@ module Mongoid
         index({ followable_id: 1, followable_type: 1 }, { background: true })
         index({ follower_id: 1, follower_type: 1 }, { background: true })
 
-        # Fields
-        field       :follower_type,     type: String
-        field       :follower_id,       type: Integer
-        field       :followable_type,   type: String
-        field       :followable_id,     type: Integer
-
         # Relations
         belongs_to  :follower,          polymorphic: true
         belongs_to  :followable,        polymorphic: true
