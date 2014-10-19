@@ -14,8 +14,7 @@ module Mongoid
         embedded_in :conversation,    class_name: Mongoid::Socialization.conversation_klass.to_s
         belongs_to  :sender,          class_name: Mongoid::Socialization.conversationer_klass.to_s
 
-        validates   :text, :sender,
-                    presence: true
+        validates   :text, :sender,   presence: true
 
         #:nodoc
         def self.remove_validation!(attribute, validator_class)
@@ -31,6 +30,10 @@ module Mongoid
 
         def unseen!
           update_attributes!(is_seen: false, seen_at: Time.now)
+        end
+
+        def recipient
+          conversation.recipient(sender)
         end
       end
     end
