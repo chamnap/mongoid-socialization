@@ -46,8 +46,12 @@ module Mongoid
         }
 
         # Validations
-         validates  :notifier, :action, :recipient,
+        validates   :notifier, :action, :recipient,
                     presence: true
+
+        def i18n_key
+          "mongoid.#{self.class.name.underscore}"
+        end
       end
 
       module ClassMethods
