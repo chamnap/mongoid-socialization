@@ -29,7 +29,7 @@ module Mongoid
         end
 
         def unseen!
-          update_attributes!(is_seen: false, seen_at: Time.now)
+          update_attributes!(is_seen: false, seen_at: nil)
         end
 
         def recipient

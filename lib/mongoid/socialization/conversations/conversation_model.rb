@@ -12,6 +12,9 @@ module Mongoid
         has_and_belongs_to_many :participants,  class_name: Mongoid::Socialization.conversationer_klass.to_s
         embeds_many             :messages,      class_name: Mongoid::Socialization.message_klass.to_s
 
+        ## Scope
+        default_scope              -> { order_by(created_at: :desc) }
+
         ## Validations
         validate                :validate_participants
 

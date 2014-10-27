@@ -46,6 +46,7 @@ module Mongoid
         }
         scope       :unseens,      -> { where(is_seen: false) }
         scope       :seens,        -> { where(is_seen: true) }
+        default_scope              -> { order_by(created_at: :desc) }
 
         # Validations
         validates   :notifier, :action, :recipient,
@@ -53,6 +54,14 @@ module Mongoid
 
         def i18n_key
           "mongoid.#{self.class.name.underscore}"
+        end
+
+        def seen!
+          update_attributes!(is_seen: true, seen_at: Time.now)
+        end
+
+        def unseen!
+          update_attributes!(is_seen: false, seen_at: nil)
         end
       end
 
