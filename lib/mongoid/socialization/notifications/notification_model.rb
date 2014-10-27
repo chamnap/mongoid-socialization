@@ -44,6 +44,8 @@ module Mongoid
         scope       :notifying,    ->(notifiable) {
           where(notifiable_type: notifiable.class.name, notifiable_id: notifiable.id)
         }
+        scope       :unseens,      -> { where(is_seen: false) }
+        scope       :seens,        -> { where(is_seen: true) }
 
         # Validations
         validates   :notifier, :action, :recipient,
