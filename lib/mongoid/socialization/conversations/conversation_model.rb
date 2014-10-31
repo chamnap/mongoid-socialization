@@ -13,7 +13,7 @@ module Mongoid
         embeds_many             :messages,      class_name: Mongoid::Socialization.message_klass.to_s
 
         ## Scope
-        default_scope              -> { order_by(created_at: :desc) }
+        default_scope           -> { order_by(updated_at: :desc) }
 
         ## Validations
         validate                :validate_participants
@@ -24,10 +24,6 @@ module Mongoid
 
         def last_message
           messages.last
-        end
-
-        def recipient(sender)
-          Mongoid::Socialization.conversationer_klass.find(participant_ids - [sender.id]).first
         end
 
         def create_message!(text, sender)

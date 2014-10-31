@@ -33,7 +33,7 @@ module Mongoid
         end
 
         def recipient
-          conversation.recipient(sender)
+          (conversation.participants - [sender]).first
         end
       end
     end
