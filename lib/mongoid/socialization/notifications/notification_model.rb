@@ -53,7 +53,7 @@ module Mongoid
                     presence: true
 
         def i18n_key
-          "mongoid.#{self.class.name.underscore}"
+          "mongoid.#{self.class.name.underscore}.#{action}"
         end
 
         def seen!
