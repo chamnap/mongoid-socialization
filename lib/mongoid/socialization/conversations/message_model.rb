@@ -15,6 +15,9 @@ module Mongoid
         belongs_to  :sender,          class_name: Mongoid::Socialization.conversationer_klass.to_s
 
         validates   :text, :sender,   presence: true
+        validate    :validate_sender
+
+        delegate    :participants,    to: :conversation
 
         #:nodoc
         def self.remove_validation!(attribute, validator_class)
@@ -33,8 +36,14 @@ module Mongoid
         end
 
         def recipient
-          (conversation.participants - [sender]).first
+          (participants - [sender]).first
         end
+
+        private
+
+          def validate_sender
+            errors.add(:sender, 'invalid sender') unless sender.in?(participants)
+          end
       end
     end
   end

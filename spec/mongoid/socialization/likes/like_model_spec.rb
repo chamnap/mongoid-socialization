@@ -180,7 +180,7 @@ module Mongoid::Socialization
         like_klass.like!(admin2, product1)
 
         expect(like_klass.likers(product1, User)).to eq([user1, user2])
-        expect(like_klass.likers(product1, Admin)).to eq([admin1, admin2])
+        expect(like_klass.likers(product1, Admin).to_a.sort).to eq([admin1, admin2].sort)
       end
 
       it "returns []" do
