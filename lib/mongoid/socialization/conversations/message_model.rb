@@ -27,6 +27,14 @@ module Mongoid
           end
         end
 
+        def unseen?
+          !is_seen
+        end
+
+        def seen?
+          is_seen
+        end
+
         def seen!
           update_attributes!(is_seen: true, seen_at: Time.now)
         end
@@ -42,7 +50,7 @@ module Mongoid
         private
 
           def validate_sender
-            errors.add(:sender, 'invalid sender') unless sender.in?(participants)
+            errors.add(:sender, 'is invalid') unless sender.in?(participants)
           end
       end
     end
