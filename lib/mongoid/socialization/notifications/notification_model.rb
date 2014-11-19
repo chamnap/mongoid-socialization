@@ -69,7 +69,6 @@ module Mongoid
         def create_notification!(params={})
 
           create!(params)
-          true
         end
       end
     end
