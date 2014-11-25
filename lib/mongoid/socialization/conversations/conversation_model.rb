@@ -10,7 +10,19 @@ module Mongoid
 
         ## Relations
         has_and_belongs_to_many :participants,  class_name: Mongoid::Socialization.conversationer_klass.to_s
-        embeds_many             :messages,      class_name: Mongoid::Socialization.message_klass.to_s
+        embeds_many             :messages,      class_name: Mongoid::Socialization.message_klass.to_s do
+          def unseens
+            where(is_seen: false, seen_at: nil)
+          end
+
+          def seens
+            where(is_seen: true)
+          end
+
+          def seen!
+            update_all(is_seen: true, seen_at: Time.now)
+          end
+        end
 
         ## Scope
         default_scope           -> { order_by(updated_at: :desc) }

@@ -14,9 +14,11 @@ module Mongoid
         embedded_in :conversation,    class_name: Mongoid::Socialization.conversation_klass.to_s
         belongs_to  :sender,          class_name: Mongoid::Socialization.conversationer_klass.to_s
 
+        # Validations
         validates   :text, :sender,   presence: true
         validate    :validate_sender
 
+        # Delegates
         delegate    :participants,    to: :conversation
 
         #:nodoc
