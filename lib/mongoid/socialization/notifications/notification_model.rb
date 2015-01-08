@@ -38,7 +38,7 @@ module Mongoid
 
         # Scopes
         scope       :notified_by,  ->(notifier) {
-          where(notifier_id: notifier.class.name, notifier_id: notifier.id)
+          where(notifier_type: notifier.class.name, notifier_id: notifier.id)
         }
 
         scope       :notifying,    ->(notifiable) {
