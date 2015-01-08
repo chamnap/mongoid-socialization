@@ -7,10 +7,10 @@ module Mongoid
         include ::Mongoid::Timestamps
 
         # Indexes
-        index({ notifier_id: 1, notifier_id: 1 },       { background: true })
-        index({ recipient_id: 1, recipient_id: 1 },     { background: true })
-        index({ notifiable_id: 1, notifiable_type: 1 }, { background: true })
-        index({ target_id: 1, target_id: 1 },           { background: true })
+        index({ notifier_id: 1,   notifier_type: 1 },         { background: true })
+        index({ recipient_id: 1,  recipient_type: 1 },        { background: true })
+        index({ notifiable_id: 1, notifiable_type: 1 },       { background: true })
+        index({ target_id: 1,     target_type: 1 },           { background: true })
 
         # Fields
         field       :action,      type: String      # the action that is performing
