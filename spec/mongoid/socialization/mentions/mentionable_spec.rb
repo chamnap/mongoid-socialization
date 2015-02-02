@@ -10,19 +10,19 @@ module Mongoid::Socialization
 
     context "#mentioned_by?" do
       it "should receive #mentioned_by? on Mention" do
-        mention_klass.should_receive(:mentioned?).with(comment, user)
+        expect(mention_klass).to receive(:mentioned?).with(comment, user)
 
         user.mentioned_by?(comment)
       end
 
       it "returns false when the Mention is not mentioner" do
-        expect(user.mentioned_by?(:foo)).to be_false
+        expect(user.mentioned_by?(:foo)).to eq(false)
       end
     end
 
     context "#mentioners" do
       it "should receive #mentioners on Mention" do
-        mention_klass.should_receive(:mentioners).with(user, User)
+        expect(mention_klass).to receive(:mentioners).with(user, User)
 
         user.mentioners(User)
       end
@@ -53,7 +53,7 @@ module Mongoid::Socialization
 
         user.destroy
         expect(user.mentioners(Comment)).to eq([])
-        expect(comment.persisted?).to be_true
+        expect(comment.persisted?).to eq(true)
       end
     end
 
@@ -69,23 +69,23 @@ module Mongoid::Socialization
 
     context "callbacks" do
       it "invokes #after_mention callbacks" do
-        expect(user.after_mention_called).to be_false
+        expect(user.after_mention_called).to eq(false)
 
         comment.mention!(user)
 
-        expect(user.after_mention_called).to be_true
+        expect(user.after_mention_called).to eq(true)
         expect(user.mentioner).to eq(comment)
       end
 
       it "invokes #after_unmention callbacks" do
         comment.mention!(user)
 
-        expect(user.after_mention_called).to be_true
-        expect(user.after_unmention_called).to be_false
+        expect(user.after_mention_called).to eq(true)
+        expect(user.after_unmention_called).to eq(false)
 
         comment.unmention!(user)
 
-        expect(user.after_unmention_called).to be_true
+        expect(user.after_unmention_called).to eq(true)
         expect(user.unmentioner).to eq(comment)
       end
     end

@@ -12,7 +12,7 @@ module Mongoid::Socialization
 
     context "#follow!" do
       it "should receive #follow! on Follow" do
-        follow_klass.should_receive(:follow!).with(user1, user2)
+        expect(follow_klass).to receive(:follow!).with(user1, user2)
 
         user1.follow!(user2)
       end
@@ -26,7 +26,7 @@ module Mongoid::Socialization
 
     context "#unfollow!" do
       it "should receive #unfollow! on Follow" do
-        follow_klass.should_receive(:unfollow!).with(user1, user2)
+        expect(follow_klass).to receive(:unfollow!).with(user1, user2)
 
         user1.unfollow!(user2)
       end
@@ -40,7 +40,7 @@ module Mongoid::Socialization
 
     context "#toggle_follow!" do
       it "should receive #toggle_follow! on Follow" do
-        follow_klass.should_receive(:toggle_follow!).with(user1, user2)
+        expect(follow_klass).to receive(:toggle_follow!).with(user1, user2)
 
         user1.toggle_follow!(user2)
       end
@@ -54,19 +54,19 @@ module Mongoid::Socialization
 
     context "#followed?" do
       it "should receive #followed? on Follow" do
-        follow_klass.should_receive(:followed?).with(user1, user2)
+        expect(follow_klass).to receive(:followed?).with(user1, user2)
 
         user1.followed?(user2)
       end
 
       it "returns false when it is not followable" do
-        expect(user1.followed?(:foo)).to be_false
+        expect(user1.followed?(:foo)).to eq(false)
       end
     end
 
     context "#followings" do
       it "should receive #followings on Follow" do
-        follow_klass.should_receive(:followables).with(user1, User)
+        expect(follow_klass).to receive(:followables).with(user1, User)
 
         user1.followings(User)
       end
@@ -105,7 +105,7 @@ module Mongoid::Socialization
 
         user1.destroy
         expect(user1.followings(Page)).to eq([])
-        expect(page1.persisted?).to be_true
+        expect(page1.persisted?).to eq(true)
       end
     end
 

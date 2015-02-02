@@ -10,7 +10,7 @@ module Mongoid::Socialization
 
     context "#mention!" do
       it "should receive #mention! on Mention" do
-        mention_klass.should_receive(:mention!).with(comment, user1)
+        expect(mention_klass).to receive(:mention!).with(comment, user1)
 
         comment.mention!(user1)
       end
@@ -24,7 +24,7 @@ module Mongoid::Socialization
 
     context "#unmention!" do
       it "should receive #unmention! on Mention" do
-        mention_klass.should_receive(:unmention!).with(comment, user1)
+        expect(mention_klass).to receive(:unmention!).with(comment, user1)
 
         comment.unmention!(user1)
       end
@@ -38,7 +38,7 @@ module Mongoid::Socialization
 
     context "#toggle_mention!" do
       it "should receive #toggle_mention! on Mention" do
-        mention_klass.should_receive(:toggle_mention!).with(comment, user1)
+        expect(mention_klass).to receive(:toggle_mention!).with(comment, user1)
 
         comment.toggle_mention!(user1)
       end
@@ -52,19 +52,19 @@ module Mongoid::Socialization
 
     context "#mentioned?" do
       it "should receive #mentioned? on Mention" do
-        mention_klass.should_receive(:mentioned?).with(comment, user1)
+        expect(mention_klass).to receive(:mentioned?).with(comment, user1)
 
         comment.mentioned?(user1)
       end
 
       it "returns false when it is not mentionable" do
-        expect(comment.mentioned?(:foo)).to be_false
+        expect(comment.mentioned?(:foo)).to eq(false)
       end
     end
 
     context "#mentionables" do
       it "should receive #mentionables on Mention" do
-        mention_klass.should_receive(:mentionables).with(comment, User)
+        expect(mention_klass).to receive(:mentionables).with(comment, User)
 
         comment.mentionables(User)
       end
@@ -100,7 +100,7 @@ module Mongoid::Socialization
 
         comment.destroy
         expect(comment.mentionables(User)).to eq([])
-        expect(product.persisted?).to be_true
+        expect(product.persisted?).to eq(true)
       end
     end
 

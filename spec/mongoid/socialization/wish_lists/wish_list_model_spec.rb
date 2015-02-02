@@ -14,13 +14,13 @@ module Mongoid::Socialization
 
     context "#wish_list!" do
       it "returns true" do
-        expect(wish_list_klass.wish_list!(user1, product1)).to be_true
+        expect(wish_list_klass.wish_list!(user1, product1)).to eq(true)
       end
 
       it "returns false after wish_listed" do
-        expect(wish_list_klass.wish_list!(user1, product1)).to be_true
+        expect(wish_list_klass.wish_list!(user1, product1)).to eq(true)
 
-        expect(wish_list_klass.wish_list!(user1, product1)).to be_false
+        expect(wish_list_klass.wish_list!(user1, product1)).to eq(false)
       end
 
       it "increments #wish_listers_count" do
@@ -56,13 +56,13 @@ module Mongoid::Socialization
 
     context "#unwish_list!" do
       it "returns true" do
-        expect(wish_list_klass.wish_list!(user1, product1)).to be_true
+        expect(wish_list_klass.wish_list!(user1, product1)).to eq(true)
 
-        expect(wish_list_klass.unwish_list!(user1, product1)).to be_true
+        expect(wish_list_klass.unwish_list!(user1, product1)).to eq(true)
       end
 
       it "returns false after unwish_listed" do
-        expect(wish_list_klass.unwish_list!(user1, product1)).to be_false
+        expect(wish_list_klass.unwish_list!(user1, product1)).to eq(false)
       end
 
       it "decrements #wish_listers_count" do
@@ -108,15 +108,15 @@ module Mongoid::Socialization
       it "returns true after #wish_list!" do
         wish_list_klass.wish_list!(user1, product1)
 
-        expect(wish_list_klass.toggle_wish_list!(user1, product1)).to be_true
-        expect(wish_list_klass.wish_listed?(user1, product1)).to be_false
+        expect(wish_list_klass.toggle_wish_list!(user1, product1)).to eq(true)
+        expect(wish_list_klass.wish_listed?(user1, product1)).to eq(false)
       end
 
       it "returns true after #unwish_list!" do
         wish_list_klass.unwish_list!(user1, product1)
 
-        expect(wish_list_klass.toggle_wish_list!(user1, product1)).to be_true
-        expect(wish_list_klass.wish_listed?(user1, product1)).to be_true
+        expect(wish_list_klass.toggle_wish_list!(user1, product1)).to eq(true)
+        expect(wish_list_klass.wish_listed?(user1, product1)).to eq(true)
       end
     end
 
@@ -124,15 +124,15 @@ module Mongoid::Socialization
       it "returns true after wish_listed" do
         wish_list_klass.wish_list!(user1, product1)
 
-        expect(wish_list_klass.wish_listed?(user1, product1)).to be_true
+        expect(wish_list_klass.wish_listed?(user1, product1)).to eq(true)
       end
 
       it "returns false after unwish_list" do
         wish_list_klass.wish_list!(user1, product1)
-        expect(wish_list_klass.wish_listed?(user1, product1)).to be_true
+        expect(wish_list_klass.wish_listed?(user1, product1)).to eq(true)
 
         wish_list_klass.unwish_list!(user1, product1)
-        expect(wish_list_klass.wish_listed?(user1, product1)).to be_false
+        expect(wish_list_klass.wish_listed?(user1, product1)).to eq(false)
       end
 
       it "raises exception when it is not wish_listable" do

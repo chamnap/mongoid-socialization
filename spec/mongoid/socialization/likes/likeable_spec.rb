@@ -9,19 +9,19 @@ module Mongoid::Socialization
 
     context "#liked_by?" do
       it "should receive #liked_by? on Like" do
-        like_klass.should_receive(:liked?).with(user, product)
+        expect(like_klass).to receive(:liked?).with(user, product)
 
         product.liked_by?(user)
       end
 
       it "returns false when it is not liker" do
-        expect(product.liked_by?(:foo)).to be_false
+        expect(product.liked_by?(:foo)).to eq(false)
       end
     end
 
     context "#likers" do
       it "should receive #likers on Like" do
-        like_klass.should_receive(:likers).with(product, User)
+        expect(like_klass).to receive(:likers).with(product, User)
 
         product.likers(User)
       end
@@ -51,7 +51,7 @@ module Mongoid::Socialization
 
         product.destroy
         expect(product.likers(User)).to eq([])
-        expect(user.persisted?).to be_true
+        expect(user.persisted?).to eq(true)
       end
     end
 
@@ -69,23 +69,23 @@ module Mongoid::Socialization
 
     context "callbacks" do
       it "invokes #after_like callbacks" do
-        expect(product.after_like_called).to be_false
+        expect(product.after_like_called).to eq(false)
 
         user.like!(product)
 
-        expect(product.after_like_called).to be_true
+        expect(product.after_like_called).to eq(true)
         expect(product.liker).to eq(user)
       end
 
       it "invokes #after_unlike callbacks" do
         user.like!(product)
 
-        expect(product.after_like_called).to be_true
-        expect(product.after_unlike_called).to be_false
+        expect(product.after_like_called).to eq(true)
+        expect(product.after_unlike_called).to eq(false)
 
         user.unlike!(product)
 
-        expect(product.after_unlike_called).to be_true
+        expect(product.after_unlike_called).to eq(true)
         expect(product.unliker).to eq(user)
       end
     end

@@ -11,19 +11,19 @@ module Mongoid::Socialization
 
     context "#followed_by?" do
       it "should receive #followed_by? on Follow" do
-        follow_klass.should_receive(:followed?).with(user1, user2)
+        expect(follow_klass).to receive(:followed?).with(user1, user2)
 
         user2.followed_by?(user1)
       end
 
       it "returns false when the Follow is not follower" do
-        expect(user2.followed_by?(:foo)).to be_false
+        expect(user2.followed_by?(:foo)).to eq(false)
       end
     end
 
     context "#followers" do
       it "should receive #followers on Follow" do
-        follow_klass.should_receive(:followers).with(user2, User)
+        expect(follow_klass).to receive(:followers).with(user2, User)
 
         user2.followers(User)
       end
@@ -56,7 +56,7 @@ module Mongoid::Socialization
 
         page.destroy
         expect(page.followers(User)).to eq([])
-        expect(user1.persisted?).to be_true
+        expect(user1.persisted?).to eq(true)
       end
     end
 
@@ -74,23 +74,23 @@ module Mongoid::Socialization
 
     context "callbacks" do
       it "invokes #after_follow callbacks" do
-        expect(page.after_follow_called).to be_false
+        expect(page.after_follow_called).to eq(false)
 
         user1.follow!(page)
 
-        expect(page.after_follow_called).to be_true
+        expect(page.after_follow_called).to eq(true)
         expect(page.follower).to eq(user1)
       end
 
       it "invokes #after_unfollow callbacks" do
         user1.follow!(page)
 
-        expect(page.after_follow_called).to be_true
-        expect(page.after_unfollow_called).to be_false
+        expect(page.after_follow_called).to eq(true)
+        expect(page.after_unfollow_called).to eq(false)
 
         user1.unfollow!(page)
 
-        expect(page.after_unfollow_called).to be_true
+        expect(page.after_unfollow_called).to eq(true)
         expect(page.unfollower).to eq(user1)
       end
     end

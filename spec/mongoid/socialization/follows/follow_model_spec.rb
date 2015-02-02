@@ -12,13 +12,13 @@ module Mongoid::Socialization
 
     context "#follow!" do
       it "returns true" do
-        expect(follow_klass.follow!(user1, page1)).to be_true
+        expect(follow_klass.follow!(user1, page1)).to eq(true)
       end
 
       it "returns false after followed" do
-        expect(follow_klass.follow!(user1, page1)).to be_true
+        expect(follow_klass.follow!(user1, page1)).to eq(true)
 
-        expect(follow_klass.follow!(user1, page1)).to be_false
+        expect(follow_klass.follow!(user1, page1)).to eq(false)
       end
 
       it "increments #followers_count" do
@@ -54,13 +54,13 @@ module Mongoid::Socialization
 
     context "#unfollow!" do
       it "returns true" do
-        expect(follow_klass.follow!(user1, page1)).to be_true
+        expect(follow_klass.follow!(user1, page1)).to eq(true)
 
-        expect(follow_klass.unfollow!(user1, page1)).to be_true
+        expect(follow_klass.unfollow!(user1, page1)).to eq(true)
       end
 
       it "returns false after unfollowed" do
-        expect(follow_klass.unfollow!(user1, page1)).to be_false
+        expect(follow_klass.unfollow!(user1, page1)).to eq(false)
       end
 
       it "decrements #followers_count" do
@@ -106,15 +106,15 @@ module Mongoid::Socialization
       it "returns true after #follow!" do
         follow_klass.follow!(user1, page1)
 
-        expect(follow_klass.toggle_follow!(user1, page1)).to be_true
-        expect(follow_klass.followed?(user1, page1)).to be_false
+        expect(follow_klass.toggle_follow!(user1, page1)).to eq(true)
+        expect(follow_klass.followed?(user1, page1)).to eq(false)
       end
 
       it "returns true after #unfollow!" do
         follow_klass.unfollow!(user1, page1)
 
-        expect(follow_klass.toggle_follow!(user1, page1)).to be_true
-        expect(follow_klass.followed?(user1, page1)).to be_true
+        expect(follow_klass.toggle_follow!(user1, page1)).to eq(true)
+        expect(follow_klass.followed?(user1, page1)).to eq(true)
       end
     end
 
@@ -122,15 +122,15 @@ module Mongoid::Socialization
       it "returns true after followed" do
         follow_klass.follow!(user1, page1)
 
-        expect(follow_klass.followed?(user1, page1)).to be_true
+        expect(follow_klass.followed?(user1, page1)).to eq(true)
       end
 
       it "returns false after unfollow" do
         follow_klass.follow!(user1, page1)
-        expect(follow_klass.followed?(user1, page1)).to be_true
+        expect(follow_klass.followed?(user1, page1)).to eq(true)
 
         follow_klass.unfollow!(user1, page1)
-        expect(follow_klass.followed?(user1, page1)).to be_false
+        expect(follow_klass.followed?(user1, page1)).to eq(false)
       end
 
       it "raises exception when it is not followable" do

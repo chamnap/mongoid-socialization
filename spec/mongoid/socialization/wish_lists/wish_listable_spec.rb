@@ -9,19 +9,19 @@ module Mongoid::Socialization
 
     context "#wish_listed_by?" do
       it "should receive #wish_listed_by? on WishListModel" do
-        wish_list_klass.should_receive(:wish_listed?).with(user, product)
+        expect(wish_list_klass).to receive(:wish_listed?).with(user, product)
 
         product.wish_listed_by?(user)
       end
 
       it "raises exception when the WishListModel is not wish_lister" do
-        expect(product.wish_listed_by?(:foo)).to be_false
+        expect(product.wish_listed_by?(:foo)).to eq(false)
       end
     end
 
     context "#wish_listers" do
       it "should receive #wish_listers on WishListModel" do
-        wish_list_klass.should_receive(:wish_listers).with(product, User)
+        expect(wish_list_klass).to receive(:wish_listers).with(product, User)
 
         product.wish_listers(User)
       end
@@ -51,7 +51,7 @@ module Mongoid::Socialization
 
         product.destroy
         expect(product.wish_listers(User)).to eq([])
-        expect(user.persisted?).to be_true
+        expect(user.persisted?).to eq(true)
       end
     end
 
@@ -69,23 +69,23 @@ module Mongoid::Socialization
 
     context "callbacks" do
       it "invokes #after_wish_list callbacks" do
-        expect(product.after_wish_list_called).to be_false
+        expect(product.after_wish_list_called).to eq(false)
 
         user.wish_list!(product)
 
-        expect(product.after_wish_list_called).to be_true
+        expect(product.after_wish_list_called).to eq(true)
         expect(product.wish_lister).to eq(user)
       end
 
       it "invokes #after_unwish_list callbacks" do
         user.wish_list!(product)
 
-        expect(product.after_wish_list_called).to be_true
-        expect(product.after_unwish_list_called).to be_false
+        expect(product.after_wish_list_called).to eq(true)
+        expect(product.after_unwish_list_called).to eq(false)
 
         user.unwish_list!(product)
 
-        expect(product.after_unwish_list_called).to be_true
+        expect(product.after_unwish_list_called).to eq(true)
         expect(product.unwish_lister).to eq(user)
       end
     end

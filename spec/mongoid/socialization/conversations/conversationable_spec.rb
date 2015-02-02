@@ -17,7 +17,7 @@ describe User, "#send_message!" do
     it "returns @message object with correct data" do
       expect(@message.text).to eq("Hello, how are you?")
       expect(@message.sender).to eq(user1)
-      expect(@message.persisted?).to be_true
+      expect(@message.persisted?).to eq(true)
       expect(@message.conversation.participant_ids.sort).to eq([user1.id, user2.id].sort)
     end
 

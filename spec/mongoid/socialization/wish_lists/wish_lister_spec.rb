@@ -11,7 +11,7 @@ module Mongoid::Socialization
 
     context "#wish_list!" do
       it "should receive #wish_list! on WishListModel" do
-        wish_list_klass.should_receive(:wish_list!).with(user, product1)
+        expect(wish_list_klass).to receive(:wish_list!).with(user, product1)
 
         user.wish_list!(product1)
       end
@@ -25,7 +25,7 @@ module Mongoid::Socialization
 
     context "#unwish_list!" do
       it "should receive #unwish_list! on WishListModel" do
-        wish_list_klass.should_receive(:unwish_list!).with(user, product1)
+        expect(wish_list_klass).to receive(:unwish_list!).with(user, product1)
 
         user.unwish_list!(product1)
       end
@@ -39,7 +39,7 @@ module Mongoid::Socialization
 
     context "#toggle_wish_list!" do
       it "should receive #toggle_wish_list! on WishListModel" do
-        wish_list_klass.should_receive(:toggle_wish_list!).with(user, product1)
+        expect(wish_list_klass).to receive(:toggle_wish_list!).with(user, product1)
 
         user.toggle_wish_list!(product1)
       end
@@ -53,19 +53,19 @@ module Mongoid::Socialization
 
     context "#wish_listed?" do
       it "should receive #wish_listed? on WishListModel" do
-        wish_list_klass.should_receive(:wish_listed?).with(user, product1)
+        expect(wish_list_klass).to receive(:wish_listed?).with(user, product1)
 
         user.wish_listed?(product1)
       end
 
       it "returns false when it is not wish_listable" do
-        expect(user.wish_listed?(:foo)).to be_false
+        expect(user.wish_listed?(:foo)).to eq(false)
       end
     end
 
     context "#wish_listables" do
       it "should receive #wish_listables on WishListModel" do
-        wish_list_klass.should_receive(:wish_listables).with(user, Product)
+        expect(wish_list_klass).to receive(:wish_listables).with(user, Product)
 
         user.wish_listables(Product)
       end
@@ -104,7 +104,7 @@ module Mongoid::Socialization
 
         user.destroy
         expect(user.wish_listables(Product)).to eq([])
-        expect(product1.persisted?).to be_true
+        expect(product1.persisted?).to eq(true)
       end
     end
 

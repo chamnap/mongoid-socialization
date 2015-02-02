@@ -16,13 +16,13 @@ module Mongoid::Socialization
 
     context "#mention!" do
       it "returns true" do
-        expect(mention_klass.mention!(comment1, user1)).to be_true
+        expect(mention_klass.mention!(comment1, user1)).to eq(true)
       end
 
       it "returns false after mentioned" do
-        expect(mention_klass.mention!(comment1, user1)).to be_true
+        expect(mention_klass.mention!(comment1, user1)).to eq(true)
 
-        expect(mention_klass.mention!(comment1, user1)).to be_false
+        expect(mention_klass.mention!(comment1, user1)).to eq(false)
       end
 
       it "increments #mentioners_count" do
@@ -58,13 +58,13 @@ module Mongoid::Socialization
 
     context "#unmention!" do
       it "returns true" do
-        expect(mention_klass.mention!(comment1, user1)).to be_true
+        expect(mention_klass.mention!(comment1, user1)).to eq(true)
 
-        expect(mention_klass.unmention!(comment1, user1)).to be_true
+        expect(mention_klass.unmention!(comment1, user1)).to eq(true)
       end
 
       it "returns false after unmentioned" do
-        expect(mention_klass.unmention!(comment1, user1)).to be_false
+        expect(mention_klass.unmention!(comment1, user1)).to eq(false)
       end
 
       it "decrements #mentioners_count" do
@@ -110,15 +110,15 @@ module Mongoid::Socialization
       it "returns true after #mention!" do
         mention_klass.mention!(comment1, user1)
 
-        expect(mention_klass.toggle_mention!(comment1, user1)).to be_true
-        expect(mention_klass.mentioned?(comment1, user1)).to be_false
+        expect(mention_klass.toggle_mention!(comment1, user1)).to eq(true)
+        expect(mention_klass.mentioned?(comment1, user1)).to eq(false)
       end
 
       it "returns true after #unmention!" do
         mention_klass.unmention!(comment1, user1)
 
-        expect(mention_klass.toggle_mention!(comment1, user1)).to be_true
-        expect(mention_klass.mentioned?(comment1, user1)).to be_true
+        expect(mention_klass.toggle_mention!(comment1, user1)).to eq(true)
+        expect(mention_klass.mentioned?(comment1, user1)).to eq(true)
       end
     end
 
@@ -126,15 +126,15 @@ module Mongoid::Socialization
       it "returns true after mentioned" do
         mention_klass.mention!(comment1, user1)
 
-        expect(mention_klass.mentioned?(comment1, user1)).to be_true
+        expect(mention_klass.mentioned?(comment1, user1)).to eq(true)
       end
 
       it "returns false after unmention" do
         mention_klass.mention!(comment1, user1)
-        expect(mention_klass.mentioned?(comment1, user1)).to be_true
+        expect(mention_klass.mentioned?(comment1, user1)).to eq(true)
 
         mention_klass.unmention!(comment1, user1)
-        expect(mention_klass.mentioned?(comment1, user1)).to be_false
+        expect(mention_klass.mentioned?(comment1, user1)).to eq(false)
       end
 
       it "raises exception when it is not mentionable" do

@@ -14,13 +14,13 @@ module Mongoid::Socialization
 
     context "#like!" do
       it "returns true" do
-        expect(like_klass.like!(user1, product1)).to be_true
+        expect(like_klass.like!(user1, product1)).to eq(true)
       end
 
       it "returns false after liked" do
-        expect(like_klass.like!(user1, product1)).to be_true
+        expect(like_klass.like!(user1, product1)).to eq(true)
 
-        expect(like_klass.like!(user1, product1)).to be_false
+        expect(like_klass.like!(user1, product1)).to eq(false)
       end
 
       it "increments #likers_count" do
@@ -56,13 +56,13 @@ module Mongoid::Socialization
 
     context "#unlike!" do
       it "returns true" do
-        expect(like_klass.like!(user1, product1)).to be_true
+        expect(like_klass.like!(user1, product1)).to eq(true)
 
-        expect(like_klass.unlike!(user1, product1)).to be_true
+        expect(like_klass.unlike!(user1, product1)).to eq(true)
       end
 
       it "returns false after unliked" do
-        expect(like_klass.unlike!(user1, product1)).to be_false
+        expect(like_klass.unlike!(user1, product1)).to eq(false)
       end
 
       it "decrements #likers_count" do
@@ -111,15 +111,15 @@ module Mongoid::Socialization
       it "returns true after #like!" do
         like_klass.like!(user1, product1)
 
-        expect(like_klass.toggle_like!(user1, product1)).to be_true
-        expect(like_klass.liked?(user1, product1)).to be_false
+        expect(like_klass.toggle_like!(user1, product1)).to eq(true)
+        expect(like_klass.liked?(user1, product1)).to eq(false)
       end
 
       it "returns true after #unlike!" do
         like_klass.unlike!(user1, product1)
 
-        expect(like_klass.toggle_like!(user1, product1)).to be_true
-        expect(like_klass.liked?(user1, product1)).to be_true
+        expect(like_klass.toggle_like!(user1, product1)).to eq(true)
+        expect(like_klass.liked?(user1, product1)).to eq(true)
       end
     end
 
@@ -127,15 +127,15 @@ module Mongoid::Socialization
       it "returns true after liked" do
         like_klass.like!(user1, product1)
 
-        expect(like_klass.liked?(user1, product1)).to be_true
+        expect(like_klass.liked?(user1, product1)).to eq(true)
       end
 
       it "returns false after unlike" do
         like_klass.like!(user1, product1)
-        expect(like_klass.liked?(user1, product1)).to be_true
+        expect(like_klass.liked?(user1, product1)).to eq(true)
 
         like_klass.unlike!(user1, product1)
-        expect(like_klass.liked?(user1, product1)).to be_false
+        expect(like_klass.liked?(user1, product1)).to eq(false)
       end
 
       it "raises exception when it is not likeable" do

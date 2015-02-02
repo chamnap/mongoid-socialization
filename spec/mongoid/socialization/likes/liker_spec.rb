@@ -11,7 +11,7 @@ module Mongoid::Socialization
 
     context "#like!" do
       it "should receive #like! on Like" do
-        like_klass.should_receive(:like!).with(user, product1)
+        expect(like_klass).to receive(:like!).with(user, product1)
 
         user.like!(product1)
       end
@@ -25,7 +25,7 @@ module Mongoid::Socialization
 
     context "#unlike!" do
       it "should receive #unlike! on Like" do
-        like_klass.should_receive(:unlike!).with(user, product1)
+        expect(like_klass).to receive(:unlike!).with(user, product1)
 
         user.unlike!(product1)
       end
@@ -39,7 +39,7 @@ module Mongoid::Socialization
 
     context "#toggle_like!" do
       it "should receive #toggle_like! on Like" do
-        like_klass.should_receive(:toggle_like!).with(user, product1)
+        expect(like_klass).to receive(:toggle_like!).with(user, product1)
 
         user.toggle_like!(product1)
       end
@@ -53,19 +53,19 @@ module Mongoid::Socialization
 
     context "#liked?" do
       it "should receive #liked? on Like" do
-        like_klass.should_receive(:liked?).with(user, product1)
+        expect(like_klass).to receive(:liked?).with(user, product1)
 
         user.liked?(product1)
       end
 
       it "returns false when it is not likeable" do
-        expect(user.liked?(:foo)).to be_false
+        expect(user.liked?(:foo)).to eq(false)
       end
     end
 
     context "#likeables" do
       it "should receive #likeables on Like" do
-        like_klass.should_receive(:likeables).with(user, Product)
+        expect(like_klass).to receive(:likeables).with(user, Product)
 
         user.likeables(Product)
       end
@@ -104,7 +104,7 @@ module Mongoid::Socialization
 
         user.destroy
         expect(user.likeables(Product)).to eq([])
-        expect(product1.persisted?).to be_true
+        expect(product1.persisted?).to eq(true)
       end
     end
 
