@@ -1,17 +1,17 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "mongoid",           "~> 4.0.1"
-gem "mongoid-observers", "~> 0.1.1"
-gem "rake",              "~> 10.3.1"
-gem "bundler",           ">= 1.7.9"
-gem "rspec",             "~> 3.1.0"
-gem "pry",               "~> 0.9.12.6"
-gem "simplecov",         "~> 0.8.2"
-gem "coveralls",         "~> 0.7.0", require: false
-gem "codeclimate-test-reporter"
-gem "ammeter",           "~> 1.1.2"
-gem "guard-rspec",       "~> 4.5.0"
-gem "mongoid-rspec",     "~> 2.1.0"
+gem 'mongoid',           '~> 4.0.2'
+gem 'mongoid-observers', '~> 0.1.1'
+gem 'rake',              '~> 10.3.1'
+gem 'bundler',           '>= 1.7.9'
+gem 'rspec',             '~> 3.1.0'
+gem 'pry',               '~> 0.9.12.6'
+gem 'simplecov',         '~> 0.8.2'
+gem 'coveralls',         '~> 0.7.0', require: false
+gem 'codeclimate-test-reporter'
+gem 'ammeter',           '~> 1.1.2'
+gem 'guard-rspec',       '~> 4.5.0'
+gem 'mongoid-rspec',     '~> 2.1.0'
 
 # Specify your gem's dependencies in mongoid-socialization.gemspec
 gemspec
