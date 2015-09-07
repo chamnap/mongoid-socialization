@@ -1,5 +1,5 @@
 # Mongoid::Socialization
-[![Build Status](https://travis-ci.org/chamnap/mongoid-socialization.svg?branch=master)](https://travis-ci.org/chamnap/mongoid-socialization)[![Coverage Status](https://coveralls.io/repos/chamnap/mongoid-socialization/badge.png)](https://coveralls.io/r/chamnap/mongoid-socialization)[![Dependency Status](https://gemnasium.com/chamnap/mongoid-socialization.svg)](https://gemnasium.com/chamnap/mongoid-socialization)
+[![Build Status](https://travis-ci.org/chamnap/mongoid-socialization.svg?branch=master)](https://travis-ci.org/chamnap/mongoid-socialization)[![Dependency Status](https://gemnasium.com/chamnap/mongoid-socialization.svg)](https://gemnasium.com/chamnap/mongoid-socialization)
 
 Mongoid-Socialization allows your mongoid models to `Like`, `Follow`, `WishList`, `Mention`, `Message` any other mongoid models. It supports both `mongoid` 3 and 4. Basically, it's inspired by [socialization](https://github.com/cmer/socialization) from [cmer](https://github.com/cmer), but it supports only ActiveRecord and Redis. Unlike [socialization](https://github.com/cmer/socialization), **mongoid-socialization** has more functionalities and I hope to extend them more.
 
